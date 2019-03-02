@@ -176,7 +176,7 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 			}// estamos no topo do cone
 			else if (j == stacks) {
 
-				//um unico triangulo no topo
+				//um unico triangulo no topo (por slice)
 				LP.push_back(new Point(x1, alturaBaixo, z1));
 				LP.push_back(new Point(x2, alturaBaixo, z2));
 				LP.push_back(new Point(0, height, 0));
@@ -195,7 +195,9 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 			}
 		}
 
+		//subimos de patamar
 		alturaBaixo = alturaCima;
+		//consequentemente tambem muda o circulo da base
 		radius = raio2;
 	}
 }
