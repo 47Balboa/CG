@@ -1,1 +1,1 @@
-# CG
+# Repositório para a UC de Computação Gráfica
