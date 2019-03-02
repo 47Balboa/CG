@@ -136,6 +136,7 @@ int main(int argc, char* argv[]) {
 			int height = atoi(argv[3]);
 			int slices = atoi(argv[4]);
 			int stack = atoi(argv[5]);
+			nomeF = argv[6];
 
 			p->genCone(radius,height,slices,stack);
 			saveFile(p, nomeF);
