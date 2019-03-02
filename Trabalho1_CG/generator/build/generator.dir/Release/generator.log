@@ -1,2 +1,3 @@
-﻿  Struct.cpp
+﻿  generator.cpp
+C:\Users\luisb\source\repos\CG\Trabalho1_CG\generator\src\generator.cpp(140): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   generator.vcxproj -> C:\Users\luisb\source\repos\CG\Trabalho1_CG\generator\build\Release\generator.exe

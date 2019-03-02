@@ -42,7 +42,7 @@ void help() {
 	cout << "|                            -Raio Fatias Pilhas           |" << endl;
 	cout << "|               -cone :                                    |" << endl;
 	cout << "|                     Dimensoes:                           |" << endl;
-	cout << "|                            -Altura Fatias Pilhas.        |" << endl;
+	cout << "|                            - Raio Altura Fatias Pilhas.  |" << endl;
 	cout << "|               -cylinder :                                |" << endl;
 	cout << "|                     Dimensoes:                           |" << endl;
 	cout << "|                            -Raio Altura Fatias.          |" << endl;
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 
 	if (argc >= 2) { 
 
-		//comandp help
+		//comando help
 		if (strcmp(argv[1], "-h") == 0){
 			help();
 		}
@@ -129,7 +129,7 @@ int main(int argc, char* argv[]) {
 			cout << "Não tem argumentos suficientes" << endl;
 			return 0;
 		}
-
+		*/
 		//desenha cone
 		if (strcmp(argv[1], "cone") == 0 && argc == 7) {
 			int radius = atoi(argv[2]);
@@ -137,13 +137,11 @@ int main(int argc, char* argv[]) {
 			int slices = atoi(argv[4]);
 			int stack = atoi(argv[5]);
 
-			p.genCone(radius,height,slices,stack);
+			p->genCone(radius,height,slices,stack);
+			saveFile(p, nomeF);
 		}
-		else cout << "Não tem argumentos suficientes" << endl;
-
-		//mensagem default se não entrar em nenhum dos if's
-		cout << "Figura não existe" << endl;
-		*/
+		else cout << "Nao tem argumentos suficientes ou figura nao existe" << endl;
+		
 	}
 	
 	else{
