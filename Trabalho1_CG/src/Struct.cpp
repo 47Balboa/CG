@@ -1,4 +1,4 @@
-#include "headers/Struct.h";
+#include "headers/Struct.h"
 
 Struct::Struct(){
 }
@@ -30,7 +30,7 @@ void Struct::genPlane(float size)
 //Responsavel por gerar os pontos dos triângulos relativos ao cilindro.
 void Struct::genCylinder(float radius, float height, int slices) {
 	float beta = atan(radius / height);
-	float alfa = 2 * (M_PI / slices);
+	float alfa = (float) (2 * (M_PI / slices));
 	for (int i = 0; i < slices; i++) {
 		float x0 = sin((i + 1)*alfa)*radius;
 		float x1 = sin(i*alfa)*radius;
@@ -57,13 +57,13 @@ void Struct::genCylinder(float radius, float height, int slices) {
 
 // Responsavel por gerar os pontos dos triangulos relativos a esfara.
 void Struct::genSphere(float radius, int slices, int stacks) {
-	float texDivY = 1.0 / stacks;
-	float texDivX = 1.0 / slices;
+	float texDivY = (float) 1.0 / stacks;
+	float texDivX = (float) 1.0 / slices;
 	float texYcima, texYbaixo;
-	float texXesq = 0, texXdir = 0 + texDivX;
+	float texXesq = 0, texXdir = texDivX;
 
-	float h = (M_PI) / stacks;
-	float h2 = (2 * M_PI) / slices;
+	float h = (float) (M_PI) / stacks;
+	float h2 = (float) (2 * M_PI) / slices;
 
 	for (int i = 0; i < slices; i++, texXesq += texDivX, texXdir += texDivX) {
 
@@ -79,7 +79,7 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 
 			if (j == 0) {
 				texYcima = 1.0;
-				texYbaixo = 1.0 - texDivY;
+				texYbaixo = (float) 1.0 - texDivY;
 
 				LP.push_back(new Point(0, radius, 0));
 				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin((i + 1)*h2)*sin((j + 1)*h)));
@@ -87,7 +87,7 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			}
 
 			if (j == stacks - 1) {
-				texYcima = 0.0 + texDivY;
+				texYcima = (float) texDivY;
 				texYbaixo = 0.0;
 
 				LP.push_back(new Point(0, -radius, 0));
@@ -96,8 +96,8 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			}
 
 			else {
-				texYcima = 1.0 - j * texDivY;
-				texYbaixo = 1.0 - (j + 1.0)*texDivY;
+				texYcima = (float) 1.0 - j * texDivY;
+				texYbaixo = (float) (1.0 - (j + 1.0)*texDivY);
 
 				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin((i + 1)*h2)*sin((j + 1)*h)));
 				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 2)*h), radius*cos((j + 2)*h), radius*sin((i + 1)*h2)*sin((j + 2)*h)));
@@ -108,5 +108,94 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 2)*h), radius*cos((j + 2)*h), radius*sin(i*h2)*sin((j + 2)*h)));
 			}
 		}
+	}
+}
+
+void Struct::genCone(float radius, float height, int slices, int stacks) {
+	float alfa = (float) (2 * M_PI) / slices; //angulo alfa
+	float particoes = height / stacks; // numero de particoes da altura
+	float tangenteBeta = height / radius;
+
+	float alturaBaixo = 0; //altura parte de baixo
+	float alturaCima; //altura parte de cima
+	float raio2; //raio do circulo superior
+
+	//um slice pode ser resumido em quatro pontos 
+	//ligados entre a camada superior e inferior
+	//   __
+	//  /\/
+	//   
+	float x1, x2, x3, x4, z1, z2, z3, z4;
+
+	float alfaI;
+	float alfaIMais1;
+
+	//este ciclo exterior trata das camadas
+	//o que faz com que o cone seja
+	//desenhado por "andares" 
+	//que convergem no topo do cilindro
+	for (int j = 1; j <= stacks; j++) {
+		alturaCima = particoes * j;
+		raio2 = (height - alturaCima) / tangenteBeta;
+
+		//este ciclo foca-se num slice particular
+		//portanto, quando 
+		for (int i = 1; i <= slices + 1; i++) {
+
+			alfaI = alfa * i;
+			alfaIMais1 = alfa * (i + 1);
+
+			x1 = radius * sin(alfaI);
+			z1 = radius * cos(alfaI);
+
+			x2 = radius * sin(alfaIMais1);
+			z2 = radius * cos(alfaIMais1);
+
+			x3 = raio2 * sin(alfaI);
+			z3 = raio2 * cos(alfaI);
+
+			x4 = raio2 * sin(alfaIMais1);
+			z4 = raio2 * cos(alfaIMais1);
+
+			if (j == 1) {
+
+				//triangulo da base
+				LP.push_back(new Point(0.0f, 0, 0.0f));
+				LP.push_back(new Point(x2, 0, z2));
+				LP.push_back(new Point(x1, 0, z1));
+
+				//triangulos do lado
+				LP.push_back(new Point(x1, 0, z1));
+				LP.push_back(new Point(x2, 0, z2));
+				LP.push_back(new Point(x3, alturaCima, z3));
+
+				LP.push_back(new Point(x2, 0, z2));
+				LP.push_back(new Point(x4, alturaCima, z4));
+				LP.push_back(new Point(x3, alturaCima, z3));
+
+			}// estamos no topo do cone
+			else if (j == stacks) {
+
+				//um unico triangulo no topo
+				LP.push_back(new Point(x1, alturaBaixo, z1));
+				LP.push_back(new Point(x2, alturaBaixo, z2));
+				LP.push_back(new Point(0, height, 0));
+			}
+			else {
+				//se nao estivermos no topo ou na base estamos a desenhar os lados do cone
+
+				//triangulos relativos aos lados do cone		
+				LP.push_back(new Point(x1, alturaBaixo, z1));
+				LP.push_back(new Point(x2, alturaBaixo, z2));
+				LP.push_back(new Point(x3, alturaCima, z3));
+		
+				LP.push_back(new Point(x2, alturaBaixo, z2));
+				LP.push_back(new Point(x4, alturaCima, z4));
+				LP.push_back(new Point(x3, alturaCima, z3));
+			}
+		}
+
+		alturaBaixo = alturaCima;
+		radius = raio2;
 	}
 }

@@ -1,5 +1,0 @@
-﻿  engine.cpp
-  parser.cpp
-C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\src\parser.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
-  engine.vcxproj -> C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\build\Release\engine.exe

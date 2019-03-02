@@ -21,6 +21,7 @@ public:
 	void genPlane(float);
 	void genCylinder(float, float, int);
 	void genSphere(float, int, int);
+	void genCone(float radius, float height, int slices, int stacks);
 
 };
 
