@@ -13,7 +13,7 @@ vector<Point*> LP;     // lista de pontos a desenhar.
 Camera camera;         // a camera que esta a ser usada (posicao, para onde esta a olhar..)
 int linha = GL_LINE;   // formato da figura.
 float rr = 1.0f, gg = 1.0f, bb = 1.0f;  // cores da figura.
-
+int face = GL_CCW;
 
 void help() {
 	cout << "*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HELP<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*" << endl;
@@ -37,6 +37,8 @@ void help() {
 	cout << "|             p        ->  Muda o formato da figura para ponto              |" << endl;
 	cout << "|             l        ->  Muda o formato da figura para linha              |" << endl;
 	cout << "|             f        ->  Preenche a figura                                |" << endl;
+	cout << "|             1        ->  Mostra o exterior                                |" << endl;
+	cout << "|             2        ->  Mostra o interior                                |" << endl;
 	cout << "|             +        ->  Aproxima a camara do ponto em foco               |" << endl;
 	cout << "|             -        ->  Afasta a camara do ponto em foco                 |" << endl;
 	cout << "|                                                                           |" << endl;
@@ -99,6 +101,7 @@ void renderScene(void) {
 		titl->getX(), titl->getY(), titl->getZ());
 
 	glPolygonMode(GL_FRONT_AND_BACK, linha);
+	glFrontFace(face);
 	glColor3f(rr, gg, bb);
 	
 	drawFigure(); // desenha a figura pretendida
@@ -123,6 +126,10 @@ void processKeys(unsigned char c, int xx, int yy) {
 	case 'f': linha = GL_FILL; break;
 
 	case 'l': linha = GL_LINE; break;
+
+	case '1': face = GL_CCW; break;
+
+	case '2': face = GL_CW; break;
 
 	case '-': camera.menosZoom(); break;
 

@@ -81,6 +81,10 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			float x6 = radius * cos((j + 2)*beta);
 			float x7 = radius * sin((i + 1)*alfa)*sin((j + 2)*beta);
 
+			//começa-se a construir a esfera por cima
+			//j = 0 corresponde ao topo (polo norte) da esfera 
+			//porque como podemos ver (0,radius,0)
+			//o que indica que estamos no topo
 			if (j == 0) {
 
 				LP.push_back(new Point(0, radius, 0));
@@ -88,6 +92,7 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 				LP.push_back(new Point(x2, x1, x3));
 			}
 
+			//estamos no polo sul da esfera
 			if (j == stacks - 1) {
 
 				LP.push_back(new Point(0, -radius, 0));
@@ -95,8 +100,7 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta) + radius*cos((i + 1)*alfa)*sin(beta),
 										-(radius * cos(beta)), 
 										radius*sin((i + 1)*alfa)*sin((j + 1)*beta) + radius * sin((i + 1)*alfa)*sin(beta)));
-			}
-
+			}//para os níveis intermedios entre os polos
 			else {
 
 				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta), x4, radius*sin((i + 1)*alfa)*sin((j + 1)*beta)));
