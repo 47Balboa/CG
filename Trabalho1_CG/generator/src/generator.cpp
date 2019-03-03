@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
 		//comando help
 		if (strcmp(argv[1], "-h") == 0){
 			help();
+			return 0;
 		}
 
 		Struct* p = new Struct();
@@ -72,6 +73,7 @@ int main(int argc, char* argv[]) {
 			nomeF = argv[3];
 			p->genPlane(dim);
 			saveFile(p, nomeF);
+			return 0;
 		}
 
 		if(strcmp(argv[1], "cylinder") == 0 && argc == 6) {
@@ -81,6 +83,7 @@ int main(int argc, char* argv[]) {
 			nomeF = argv[5];
 			p->genCylinder(radius, height, slices);
 			saveFile(p, nomeF);
+			return 0;
 		}
 
 		if (strcmp(argv[1], "sphere") == 0 && argc == 6) {
@@ -90,14 +93,9 @@ int main(int argc, char* argv[]) {
 			nomeF = argv[5];
 			p->genSphere(radius, slices, stack);
 			saveFile(p, nomeF);
-		}
-		
-		/*
-		else {
-			cout << "Não tem argumentos suficientes" << endl;
 			return 0;
 		}
-		*/
+		
 		/*
 		//desenha box
 		if (strcmp(argv[1], "box") == 0 && argc > 5) {
@@ -111,22 +109,6 @@ int main(int argc, char* argv[]) {
 				int divisions = atoi(argv[5]);
 				p.genBox(x,y,z,divisions);
 			}
-		}
-		else {
-			cout << "Não tem argumentos suficientes" << endl;
-			return 0;
-		}
-
-		//desenha esfera
-		if (strcmp(argv[1], "sphere") == 0 && argc == 6) {
-			int radius = atoi(argv[2]);
-			int slices = atoi(argv[3]);
-			int stack = atoi(argv[4]);
-
-			p.genSphere(radius, slices, stack);
-		}
-		else {
-			cout << "Não tem argumentos suficientes" << endl;
 			return 0;
 		}
 		*/
@@ -140,8 +122,9 @@ int main(int argc, char* argv[]) {
 
 			p->genCone(radius,height,slices,stack);
 			saveFile(p, nomeF);
+			return 0;
 		}
-		else cout << "Nao tem argumentos suficientes ou figura nao existe" << endl;
+		else { cout << "Nao tem argumentos suficientes ou figura nao existe" << endl; }
 		
 	}
 	

@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\src\engine.cpp">
+    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\engine\src\engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\src\parser.cpp">
+    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\engine\src\parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\luis macedo\Desktop\Trabalho1_CG\src\Point.cpp">
+    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\src\Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\src\tinyxml2.cpp">
+    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\engine\src\tinyxml2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\src\camera.cpp">
+    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\engine\src\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\luis macedo\Desktop\Trabalho1_CG\engine\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\engine\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{D8D20F42-8231-30B8-AB07-1BD83952E052}</UniqueIdentifier>
+      <UniqueIdentifier>{4ADDB65A-DA24-3116-9CB4-DAC6A3E9EF5A}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

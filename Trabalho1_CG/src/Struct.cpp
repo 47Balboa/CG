@@ -58,44 +58,52 @@ void Struct::genCylinder(float radius, float height, int slices) {
 // Responsavel por gerar os pontos dos triangulos relativos a esfara.
 void Struct::genSphere(float radius, int slices, int stacks) {
 
-	float h = (float) (M_PI) / stacks;
-	float h2 = (float) (2 * M_PI) / slices;
+	float beta = (float) (M_PI) / stacks; //angulo beta
+	float alfa = (float) (2 * M_PI) / slices; //angulo alfa
 
 	for (int i = 0; i < slices; i++) {
 
 		for (int j = 0; j < stacks; j++) {
 
-			float x2 = radius * cos((i + 1)*h2)*sin(h);
-			float y2 = radius * cos(h);
-			float z2 = radius * sin((i + 1)*h2)*sin(h);
 
-			float x3 = radius * cos(i*h2)*sin(h);
-			float y3 = radius * cos(h);
-			float z3 = radius * sin(i*h2)*sin(h);
+			//só foram consideradas 
+			// expressões que se repitam mais do que uma 
+			// vez por "if"
+			//porque, salvo certas excepções, 
+			// o mesmo "if" é executado uma vez por ciclo
+			float x1 = radius * cos((j + 1)*beta);
+			float x2 = radius * cos(i*alfa)*sin((j + 1)*beta);
+			float x3 = radius * sin(i*alfa)*sin((j + 1)*beta);
+			float x4 = radius * cos((j + 1)*beta);
+			float x5 = radius * cos((i + 1)*alfa)*sin((j + 2)*beta);
+			float x6 = radius * cos((j + 2)*beta);
+			float x7 = radius * sin((i + 1)*alfa)*sin((j + 2)*beta);
 
 			if (j == 0) {
 
 				LP.push_back(new Point(0, radius, 0));
-				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin((i + 1)*h2)*sin((j + 1)*h)));
-				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin(i*h2)*sin((j + 1)*h)));
+				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta), x1, radius*sin((i + 1)*alfa)*sin((j + 1)*beta)));
+				LP.push_back(new Point(x2, x1, x3));
 			}
 
 			if (j == stacks - 1) {
 
 				LP.push_back(new Point(0, -radius, 0));
-				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 1)*h) + x3, -y2, radius*sin(i*h2)*sin((j + 1)*h) + z3));
-				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h) + x2, -y3, radius*sin((i + 1)*h2)*sin((j + 1)*h) + z2));
+				LP.push_back(new Point(x2 + radius*cos(i*alfa)*sin(beta), -(radius*cos(beta)), x3 + radius*sin(i*alfa)*sin(beta)));
+				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta) + radius*cos((i + 1)*alfa)*sin(beta),
+										-(radius * cos(beta)), 
+										radius*sin((i + 1)*alfa)*sin((j + 1)*beta) + radius * sin((i + 1)*alfa)*sin(beta)));
 			}
 
 			else {
 
-				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin((i + 1)*h2)*sin((j + 1)*h)));
-				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 2)*h), radius*cos((j + 2)*h), radius*sin((i + 1)*h2)*sin((j + 2)*h)));
-				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin(i*h2)*sin((j + 1)*h)));
+				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta), x4, radius*sin((i + 1)*alfa)*sin((j + 1)*beta)));
+				LP.push_back(new Point(x5, x6, x7));
+				LP.push_back(new Point(x2, x4, x3));
 
-				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin(i*h2)*sin((j + 1)*h)));
-				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 2)*h), radius*cos((j + 2)*h), radius*sin((i + 1)*h2)*sin((j + 2)*h)));
-				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 2)*h), radius*cos((j + 2)*h), radius*sin(i*h2)*sin((j + 2)*h)));
+				LP.push_back(new Point(x2, x4, x3));
+				LP.push_back(new Point(x5, x6, x7));
+				LP.push_back(new Point(radius*cos(i*alfa)*sin((j + 2)*beta), x6, radius*sin(i*alfa)*sin((j + 2)*beta)));
 			}
 		}
 	}
