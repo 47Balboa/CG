@@ -315,7 +315,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\generator\src\generator.cpp" />
     <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\src\Point.cpp" />
-    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\src\Struct.cpp" />
+    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\src\Struct.cpp">
+      <FileType>CppClass</FileType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\generator\build\ZERO_CHECK.vcxproj">

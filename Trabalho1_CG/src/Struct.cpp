@@ -57,15 +57,11 @@ void Struct::genCylinder(float radius, float height, int slices) {
 
 // Responsavel por gerar os pontos dos triangulos relativos a esfara.
 void Struct::genSphere(float radius, int slices, int stacks) {
-	float texDivY = (float) 1.0 / stacks;
-	float texDivX = (float) 1.0 / slices;
-	float texYcima, texYbaixo;
-	float texXesq = 0, texXdir = texDivX;
 
 	float h = (float) (M_PI) / stacks;
 	float h2 = (float) (2 * M_PI) / slices;
 
-	for (int i = 0; i < slices; i++, texXesq += texDivX, texXdir += texDivX) {
+	for (int i = 0; i < slices; i++) {
 
 		for (int j = 0; j < stacks; j++) {
 
@@ -78,8 +74,6 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			float z3 = radius * sin(i*h2)*sin(h);
 
 			if (j == 0) {
-				texYcima = 1.0;
-				texYbaixo = (float) 1.0 - texDivY;
 
 				LP.push_back(new Point(0, radius, 0));
 				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin((i + 1)*h2)*sin((j + 1)*h)));
@@ -87,8 +81,6 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			}
 
 			if (j == stacks - 1) {
-				texYcima = (float) texDivY;
-				texYbaixo = 0.0;
 
 				LP.push_back(new Point(0, -radius, 0));
 				LP.push_back(new Point(radius*cos(i*h2)*sin((j + 1)*h) + x3, -y2, radius*sin(i*h2)*sin((j + 1)*h) + z3));
@@ -96,8 +88,6 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			}
 
 			else {
-				texYcima = (float) 1.0 - j * texDivY;
-				texYbaixo = (float) (1.0 - (j + 1.0)*texDivY);
 
 				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 1)*h), radius*cos((j + 1)*h), radius*sin((i + 1)*h2)*sin((j + 1)*h)));
 				LP.push_back(new Point(radius*cos((i + 1)*h2)*sin((j + 2)*h), radius*cos((j + 2)*h), radius*sin((i + 1)*h2)*sin((j + 2)*h)));
@@ -113,7 +103,7 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 
 void Struct::genCone(float radius, float height, int slices, int stacks) {
 	float alfa = (float) (2 * M_PI) / slices; //angulo alfa
-	float particoes = height / stacks; // numero de particoes da altura
+	float alturaStack = height / stacks; // altura de uma stack 
 	float tangenteBeta = height / radius;
 
 	float alturaBaixo = 0; //altura parte de baixo
@@ -135,7 +125,7 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 	//desenhado por "andares" 
 	//que convergem no topo do cilindro
 	for (int j = 1; j <= stacks; j++) {
-		alturaCima = particoes * j;
+		alturaCima = alturaStack * j;
 		raio2 = (height - alturaCima) / tangenteBeta;
 
 		//este ciclo foca-se num slice particular
@@ -160,7 +150,7 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 			if (j == 1) {
 
 				//triangulo da base
-				LP.push_back(new Point(0.0f, 0, 0.0f));
+				LP.push_back(new Point(0, 0, 0));
 				LP.push_back(new Point(x2, 0, z2));
 				LP.push_back(new Point(x1, 0, z1));
 
