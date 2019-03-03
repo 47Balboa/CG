@@ -1,23 +1,46 @@
-
+﻿
 #include "headers/parser.h"
+#include "headers/camera.h"
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
 
-vector<Point*> LP;
 
+vector<Point*> LP;     // lista de pontos a desenhar.
+Camera camera;         // a camera que esta a ser usada (posicao, para onde esta a olhar..)
+int linha = GL_LINE;   // formato da figura.
+float rr = 1.0f, gg = 1.0f, bb = 1.0f;  // cores da figura.
 
 
 void help() {
-	cout << "*---------------------------------HELP--------------------------------------*" << endl;
+	cout << "*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HELP<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*" << endl;
 	cout << "|                                                                           |" << endl;
-	cout << "|      Modo de utilizacao:                                                  |" << endl;
+	cout << "|   Modo de utilizacao:                                                     |" << endl;
 	cout << "|                       engine.exe (ficheiro xml)                           |" << endl;
 	cout << "|   Nota: Os ficheiros 3d tem de estar gerados (pelo generator).            |" << endl;
 	cout << "|                                                                           |" << endl;
-	cout << "|                                                                           |" << endl;
-	cout << "|            Exemplo de utilizacao:                                         |" << endl;
+	cout << "|   Exemplo de utilizacao:                                                  |" << endl;
 	cout << "|                          engine.exe plane.xml                             |" << endl;
 	cout << "|                                                                           |" << endl;
-	cout << "*---------------------------------------------------------------------------*" << endl;
+	cout << "|         Teclas:      ->       Respetivas acoes:                           |" << endl;
+	cout << "|     (seta cima)      ->  Roda a posicao da camera para cima               |" << endl;
+	cout << "|     (seta baixo)     ->  Roda a posicao da camera para baixo              |" << endl;
+	cout << "|     (seta esquerda)  ->  Roda a posicao da camera para a esquerda         |" << endl;
+	cout << "|     (seta direita)   ->  Roda a posicao da camera para a direita          |" << endl;
+	cout << "|             w        ->  Muda a cor da figura para branco                 |" << endl;
+	cout << "|             r        ->  Muda a cor da figura para vermelho               |" << endl;
+	cout << "|             b        ->  Muda a cor da figura para azul                   |" << endl;
+	cout << "|             g        ->  Muda a cor da figura para verde                  |" << endl;
+	cout << "|             p        ->  Muda o formato da figura para ponto              |" << endl;
+	cout << "|             l        ->  Muda o formato da figura para linha              |" << endl;
+	cout << "|             f        ->  Preenche a figura                                |" << endl;
+	cout << "|             +        ->  Aproxima a camara do ponto em foco               |" << endl;
+	cout << "|             -        ->  Afasta a camara do ponto em foco                 |" << endl;
+	cout << "|                                                                           |" << endl;
+	cout << "*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>HELP<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*" << endl;
 
 }
 
@@ -51,7 +74,6 @@ void drawFigure() {
 	int i = 0;
 	while (i < size) {
 		glBegin(GL_TRIANGLES);
-		glColor3f(256, 0, 0);
 		glVertex3f(LP[i]->getX(), LP[i]->getY(), LP[i]->getZ());
 		glVertex3f(LP[i+1]->getX(), LP[i+1]->getY(), LP[i+1]->getZ());
 		glVertex3f(LP[i+2]->getX(), LP[i+2]->getY(), LP[i+2]->getZ());
@@ -68,16 +90,17 @@ void renderScene(void) {
 	// set the camera
 	glLoadIdentity();
 
-	//px = 3.0;
-	//py = 3.0;
-	//pz = 3.0;
+	Point* camPos = camera.getCamPosition(); // carrega o ponto em que a camera esta
+	Point* lookP = camera.getLookPoint();    // carrega o ponto para onde a camera esta a olhar
+	Point* titl = camera.getTitl();		     // carrega o 'up vector'
 
-	gluLookAt(4.0, 4.0, 4.0,
-		0.0, 0.0, 0.0,
-		0.0f, 1.0f, 0.0f);
+	gluLookAt(camPos->getX(), camPos->getY(), camPos->getZ(),
+		lookP->getX(), lookP->getY(), lookP->getZ(),
+		titl->getX(), titl->getY(), titl->getZ());
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
+	glPolygonMode(GL_FRONT_AND_BACK, linha);
+	glColor3f(rr, gg, bb);
+	
 	drawFigure(); // desenha a figura pretendida
 
 	// End of frame
@@ -86,16 +109,40 @@ void renderScene(void) {
 
 
 void processKeys(unsigned char c, int xx, int yy) {
+	switch (c) {
+	case 'w': rr = 1.0f; gg = 1.0f; bb = 1.0f; break;
 
-	// put code to process regular keys
+	case 'g': rr = 0.0f; gg = 1.0f; bb = 0.0f; break;
+	
+	case 'b': rr = 0.0f; gg = 0.0f; bb = 1.0f; break;
+
+	case 'r': rr = 1.0f; gg = 0.0f; bb = 0.0f; break;
+
+	case 'p': linha = GL_POINT; break;
+
+	case 'f': linha = GL_FILL; break;
+
+	case 'l': linha = GL_LINE; break;
+
+	case '-': camera.menosZoom(); break;
+
+	case '+': camera.maisZoom(); break;
+	}
 
 
 }
 
 
 void processSpecialKeys(int key, int xx, int yy) {
+	switch (key) {
+	case GLUT_KEY_UP: camera.camUp(); break;
 
-	// put code to process special keys in here
+	case GLUT_KEY_DOWN: camera.camDown(); break;
+
+	case GLUT_KEY_LEFT: camera.camLeft(); break;
+
+	case GLUT_KEY_RIGHT: camera.camRight(); break;
+	}
 
 }
 
