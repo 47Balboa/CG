@@ -61,8 +61,10 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 	float beta = (float) (M_PI) / stacks; //angulo beta
 	float alfa = (float) (2 * M_PI) / slices; //angulo alfa
 
+	//para cada slice percorrem-se as respectivas stacks
 	for (int i = 0; i < slices; i++) {
 
+		//calculam-se os pontos por slice
 		for (int j = 0; j < stacks; j++) {
 
 
