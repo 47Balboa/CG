@@ -96,22 +96,25 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 		
-		/*
+		
 		//desenha box
 		if (strcmp(argv[1], "box") == 0 && argc > 5) {
 			int x = atoi(argv[2]);
 			int y = atoi(argv[3]);
 			int z = atoi(argv[4]);
 
-			if (argc == 6) p.genBox(x,y,z);
+            if (argc == 6) {p.genBox(x,y,z,1);nomeF = argv[5]}
 
 			if (argc == 7) {
 				int divisions = atoi(argv[5]);
 				p.genBox(x,y,z,divisions);
+                nomeF = argv[6];
 			}
+            saveFile(p, nomeF);
+            
 			return 0;
 		}
-		*/
+		
 		//desenha cone
 		if (strcmp(argv[1], "cone") == 0 && argc == 7) {
 			int radius = atoi(argv[2]);

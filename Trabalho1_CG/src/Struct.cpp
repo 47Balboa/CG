@@ -205,3 +205,89 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 		radius = raio2;
 	}
 }
+
+
+void Struct:: genBox(float cX, float cY, float cZ, int div){
+    
+    
+    
+    float x = cX/2;
+    float y = cY/2;
+    float z = cZ/2;
+    
+    float pX = (float)cX/div;
+    float pY = (float)cY/div;
+    float pZ = (float)cZ/div;
+    
+    
+    
+    for(int i=0;i<div;i++){
+        for(int j=0;j<div;j++){
+            //Face da frente
+            LP.push_back(new Point(-x + (j*pX),-y + (i*pY),z));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y + (i*pY),z));
+            LP.push_back(new Point(-x + (j*pX),(-y+pY) + (i*pY),z));
+            
+            
+            
+            LP.push_back(new Point(-x + (j*pX),(-y+pY) + (i*pY),z));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y + (i*pY),z));
+            LP.push_back(new Point((-x+pX) + (j*pX),(-y+pY) + (i*pY),z));
+            
+            //Face traseira
+            
+            LP.push_back(new Point(-x + (j*pX),-y + (i*pY),-z));
+            LP.push_back(new Point(-x + (j*pX),(-y+pY) + (i*pY),-z));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y + (i*pY),-z));
+            
+            
+            LP.push_back(new Point(-x + (j*pX),(-y+pY) + (i*pY),-z));
+            LP.push_back(new Point((-x+pX) + (j*pX),(-y+pY) + (i*pY),-z));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y + (i*pY),-z));
+            
+            
+            //Face direita
+            LP.push_back(new Point(x,-y + (i*pY),-z + (j*pZ)));
+            LP.push_back(new Point(x,(-y+pY) + (i*pY),-z +(j*pZ)));
+            LP.push_back(new Point(x,-y + (i*pY),(-z+pZ) + (j*pZ)));
+            
+            
+            LP.push_back(new Point(x,(-y+pY) + (i*pY),-z + (j*pZ)));
+            LP.push_back(new Point(x,(-y+pY) + (i*pY),(-z+pZ) + (j*pZ)));
+            LP.push_back(new Point(x,-y + (i*pY),(-z+pZ) + (j*pZ)));
+            
+            
+            //Face esquerda
+            LP.push_back(new Point(-x,-y + (i*pY),-z + (j*pZ)));
+            LP.push_back(new Point(-x,-y + (i*pY),(-z+pZ) + (j*pZ)));
+            LP.push_back(new Point(-x,(-y+pY) + (i*pY),-z +(j*pZ)));
+            
+            
+            LP.push_back(new Point(-x,(-y+pY) + (i*pY),-z + (j*pZ)));
+            LP.push_back(new Point(-x,-y + (i*pY),(-z+pZ) + (j*pZ)));
+            LP.push_back(new Point(-x,(-y+pY) + (i*pY),(-z+pZ) + (j*pZ)));
+            
+            //Topo
+            LP.push_back(new Point(-x + (j*pX),y,-z + (i*pZ)));
+            LP.push_back(new Point(-x + (j*pX),y,(-z+pZ) + (i*pZ)));
+            LP.push_back(new Point((-x+pX) + (j*pX),y,-z + (i*pZ)));
+            
+            
+            LP.push_back(new Point(-x + (j*pX),y,(-z+pZ) + (i*pZ)));
+            LP.push_back(new Point((-x+pX) + (j*pX),y,(-z+pZ) + (i*pZ)));
+            LP.push_back(new Point((-x+pX) + (j*pX),y,-z + (i*pZ)));
+            
+            //Base
+            LP.push_back(new Point(-x + (j*pX),-y,-z + (i*pZ)));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y,-z + (i*pZ)));
+            LP.push_back(new Point(-x + (j*pX),-y,(-z+pZ) + (i*pZ)));
+            
+            
+            LP.push_back(new Point(-x + (j*pX),-y,(-z+pZ) + (i*pZ)));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y,-z + (i*pZ)));
+            LP.push_back(new Point((-x+pX) + (j*pX),-y,(-z+pZ) + (i*pZ)));
+            
+        }
+    }
+    
+}
