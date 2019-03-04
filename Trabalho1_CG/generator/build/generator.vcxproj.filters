@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\generator\src\generator.cpp">
+    <ClCompile Include="C:\Users\joaon\source\repos\CG\Trabalho1_CG\generator\src\generator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\src\Point.cpp">
+    <ClCompile Include="C:\Users\joaon\source\repos\CG\Trabalho1_CG\src\Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\src\Struct.cpp">
+    <ClCompile Include="C:\Users\joaon\source\repos\CG\Trabalho1_CG\src\Struct.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Users\luisb\source\repos\CG\Trabalho1_CG\generator\CMakeLists.txt" />
+    <CustomBuild Include="C:\Users\joaon\source\repos\CG\Trabalho1_CG\generator\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{79B7E94E-6D85-371E-92C7-4523CDC77D6F}</UniqueIdentifier>
+      <UniqueIdentifier>{9180D918-7CBC-36F3-9869-11842AF88D35}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
