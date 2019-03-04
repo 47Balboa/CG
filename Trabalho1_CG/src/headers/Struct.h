@@ -22,7 +22,7 @@ public:
 	void genCylinder(float, float, int);
 	void genSphere(float, int, int);
 	void genCone(float , float , int , int );
-    void genBox(float , float , float , int ){
+	void genBox(float, float, float, int);
 
 };
 

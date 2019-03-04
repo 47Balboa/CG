@@ -8,7 +8,7 @@ using namespace std;
 // Responsável por guardar os pontos gerados num documento.
 void saveFile(Struct *p, string nomeF) {
 	fstream(file);
-	file.open("../../../3dFiles/" + nomeF, fstream::out);
+	file.open("../3dFiles/" + nomeF, fstream::out);
 	
 	if (file.is_open()) { // verifica se foi aberto
 		vector<Point*> v = p->getLP();
@@ -99,15 +99,15 @@ int main(int argc, char* argv[]) {
 		
 		//desenha box
 		if (strcmp(argv[1], "box") == 0 && argc > 5) {
-			int x = atoi(argv[2]);
-			int y = atoi(argv[3]);
-			int z = atoi(argv[4]);
+			float x = stof(argv[2]);
+			float y = stof(argv[3]);
+			float z = stof(argv[4]);
 
-            if (argc == 6) {p.genBox(x,y,z,1);nomeF = argv[5]}
+			if (argc == 6) { p->genBox(x, y, z, 1); nomeF = argv[5]; }
 
 			if (argc == 7) {
 				int divisions = atoi(argv[5]);
-				p.genBox(x,y,z,divisions);
+				p->genBox(x,y,z,divisions);
                 nomeF = argv[6];
 			}
             saveFile(p, nomeF);
@@ -117,8 +117,8 @@ int main(int argc, char* argv[]) {
 		
 		//desenha cone
 		if (strcmp(argv[1], "cone") == 0 && argc == 7) {
-			int radius = atoi(argv[2]);
-			int height = atoi(argv[3]);
+			float radius = stof(argv[2]);
+			float height = stof(argv[3]);
 			int slices = atoi(argv[4]);
 			int stack = atoi(argv[5]);
 			nomeF = argv[6];

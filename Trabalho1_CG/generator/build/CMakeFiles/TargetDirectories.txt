@@ -1,3 +1,0 @@
-C:/Users/luisb/source/repos/CG/Trabalho1_CG/generator/build/CMakeFiles/generator.dir
-C:/Users/luisb/source/repos/CG/Trabalho1_CG/generator/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/luisb/source/repos/CG/Trabalho1_CG/generator/build/CMakeFiles/ZERO_CHECK.dir
