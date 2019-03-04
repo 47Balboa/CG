@@ -7,7 +7,7 @@ void readFile(string name, vector<Point*>* LP) {
 	string linha;
 	int index = 0;
 
-	ifstream file("../"+name);
+	ifstream file(name);
 	if (file.is_open()) {
 
 		getline(file, linha);                   // Guarda a primeira linha que corresponde ao nº de vértices presentes no ficheiro a ler.
@@ -30,7 +30,7 @@ void readFile(string name, vector<Point*>* LP) {
 string readXML(string name) {
 	XMLDocument doc;
 	string s;
-	string path = "../../xml/"+name;
+	string path = "xml/"+name;
 	if (!(doc.LoadFile(path.c_str()))) {
 		XMLElement* root = doc.FirstChildElement("scene");
 		if (root == nullptr) return s;
