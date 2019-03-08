@@ -158,8 +158,7 @@ int main(int argc, char **argv) {
 
 	if (argc == 2) {
 		if (!strcmp(argv[1], "-h")) { help(); return 0;}
-		string name = readXML(argv[1]);
-		readFile(name, &LP);
+		readXML(argv[1], &LP);
 	}
 	else { cout << "Nao esta a passar os argumentos corretos! Se precisar de ajuda, execute o comando 'engine.exe -h'" << endl; return 0; }
 

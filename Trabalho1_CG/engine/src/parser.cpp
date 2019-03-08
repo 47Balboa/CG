@@ -27,22 +27,23 @@ void readFile(string name, vector<Point*>* LP) {
 	else { cout << "Nao foi possivel abrir o ficheiro 3d (possivelmente nao tera gerado os pontos da figura a desenhar com o 'generator')" << endl; }
 }
 
-string readXML(string name) {
+void readXML(string name, vector<Point*>* LP) {
 	XMLDocument doc;
 	string s;
-	string path = "xml/"+name;
+	string path = "xml/" + name;
 	if (!(doc.LoadFile(path.c_str()))) {
 		XMLElement* root = doc.FirstChildElement("scene");
-		if (root == nullptr) return s;
+		if (root == nullptr) return;
 		XMLElement *elemento = root->FirstChildElement("model");
-		if(elemento != nullptr){
+		while (elemento != nullptr) {
 			s = elemento->Attribute("file");
-			cout << "A leitura do ficheiro foi realizada com sucesso!" << endl;
+			readFile(s, LP);
 			elemento = elemento->NextSiblingElement();
 		}
 	}
 	else {
 		cout << "Nao foi possivel realizar a leitura do ficheiro XML (possivelmente porque ele nao existe)! " << endl;
 	}
-	return s;
+	return;
 }
+

@@ -13,7 +13,7 @@ using namespace tinyxml2;
 using namespace std;
 
 void readFile(string, vector<Point*>*);
-string readXML(string);
+void readXML(string, vector<Point*>*);
 
 
 #endif
