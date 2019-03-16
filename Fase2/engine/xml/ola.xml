@@ -1,0 +1,19 @@
+<?xml version="2.0" ?>
+<scene>
+	<group>
+		<scale X="2" Y="2" Z="2"/>
+		<colour X="0.33" Y="0.22" Z="0.11"/>
+		<models>
+	     <model file='../3dFiles/sphere.3d'/>
+	    </models>
+	    <group>
+	    	<translate X="1" Y="2" Z="1"/>
+	    	<rotate Angle="10" X="1" Y="0" Z="0"/>
+	    	<scale X="0.4" Y="0.4" Z="0.4"/>
+	    	<colour X="0.8" Y="0.4" Z="0.3"/>
+	    	<models>
+	    		<model file='../3dFiles/sphere.3d'/>
+	    	</models>
+	    </group>
+    </group>
+</scene>
