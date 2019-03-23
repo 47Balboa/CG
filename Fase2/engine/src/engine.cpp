@@ -146,6 +146,14 @@ void processKeys(unsigned char c, int xx, int yy) {
 	case 'f': linha = GL_FILL; break;
 
 	case 'l': linha = GL_LINE; break;
+	
+	case 'w': camera.FocusUp(); break;
+
+	case 'd': camera.FocusRight(); break;
+
+	case 's': camera.FocusDown(); break;
+
+	case 'a': camera.FocusLeft(); break;
 
 	case '1': face = GL_CCW; break;
 
@@ -163,7 +171,7 @@ void processKeys(unsigned char c, int xx, int yy) {
 void processSpecialKeys(int key, int xx, int yy) {
 	switch (key) {
 	case GLUT_KEY_UP: camera.camUp(); break;
-
+		
 	case GLUT_KEY_DOWN: camera.camDown(); break;
 
 	case GLUT_KEY_LEFT: camera.camLeft(); break;

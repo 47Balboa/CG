@@ -6,11 +6,11 @@ float deslB = float((M_PI) / 10.0);
 
 // responsavel por inicializar a camera.
 Camera::Camera() {
-	camPosition = new Point(5.0, 5.0, 5.0);
-	lookPoint = new Point(0.0, 0.0, 0.0);
+	camPosition = new Point(160, 160, 160);
+	lookPoint = new Point(140.0, 0.0, 0.0);
 	titl = new Point(0.0f, 1.0f, 0.0f);
 	alfa = beta = 0.0;
-	dist = 8.6f;
+	atualizaDist();
 }
 
 // Atualiza a camera conforme os valores de alfa, beta e dist.
@@ -21,6 +21,20 @@ void Camera::atualizaCamPosition() {
 
 	setCamPosition(x, y, z);		// atualiza a posicao da camera.
 }
+
+void Camera::atualizaDist() {
+
+	float Cx = camPosition->getX();
+	float Cy = camPosition->getY();
+	float Cz = camPosition->getZ();
+	float LookPx = lookPoint->getX();
+	float LookPy = lookPoint->getY();
+	float LookPz = lookPoint->getZ();
+
+	dist = sqrt(pow(Cx-LookPx,2) + pow(Cy-LookPy,2) + pow(Cz-LookPz,2));
+	atualizaCamPosition();
+}
+
 
 //responsavel pela rotacao da posicao da camara para a esquerda.
 void Camera::camUp() {
@@ -54,16 +68,41 @@ void Camera::camRight() {
 	atualizaCamPosition();
 }
 
+void Camera::FocusUp() {
+	float y = lookPoint->getY()+1;
+	lookPoint->setY(y);
+	//atualizaDist();
+	camPosition->setY(camPosition->getY() + 1);
+}
+void Camera::FocusDown() {
+	float y = lookPoint->getY()-1;
+	lookPoint->setY(y);
+	camPosition->setY(camPosition->getY() - 1);
+	//atualizaDist();
+}
+void Camera::FocusLeft() {
+	float x = lookPoint->getX() - 1;
+	lookPoint->setX(x);
+	camPosition->setX(camPosition->getX() - 1);
+	//atualizaDist();
+}
+void Camera::FocusRight() {
+	float x = lookPoint->getX() + 1;
+	lookPoint->setX(x);
+	camPosition->setX(camPosition->getX() + 1);
+	//atualizaDist();
+}
+
 //aproxima a camera do ponto a que esta a olhar.
 void Camera::maisZoom() {
-	dist -= 0.2f;
+	dist -= 30.0f;
 	
 	atualizaCamPosition();
 }
 
 //afasta a camara do ponto a que esta a olhar.
 void Camera::menosZoom() {
-	dist += 0.2f;
+	dist += 30.0f;
 	
 	atualizaCamPosition();
 }

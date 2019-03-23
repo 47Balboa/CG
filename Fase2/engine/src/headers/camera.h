@@ -18,10 +18,15 @@ class Camera {
 public:
 	Camera();
 	void atualizaCamPosition();
+	void atualizaDist();
 	void camUp();
 	void camDown();
 	void camLeft();
 	void camRight();
+	void FocusUp();
+	void FocusDown();
+	void FocusLeft();
+	void FocusRight();
 	void maisZoom();
 	void menosZoom();
 	Point* getCamPosition();
