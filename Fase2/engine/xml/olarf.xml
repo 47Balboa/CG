@@ -72,11 +72,31 @@
 					<model file = '../3dFiles/sphere.3d'/>
 				</models>
 			</group>
-			    <group>
+			 <group>
 				<!-- SATELITE - EUROPA !-->
 				<rotate angle="0.471" X="0" Y="0" Z="1"/>
 				<translate X="-1.4" Y="-1.4" Z="0"/>
-				<scale X="0.010916" Y="0.01016" Z="0.010916"/>
+				<scale X="0.0218318" Y="0.0218318" Z="0.0218318"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			<group>
+				<!-- SATELITE - GANIMEDES !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="1.4" Y="-1.4" Z="0"/>
+				<scale X="0.036845" Y="0.036945" Z="0.036845"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			<group>
+				<!-- SATELITE - CALISTO !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="-1.4" Y="1.4" Z="0"/>
+				<scale X="0.0337143" Y="0.0337143" Z="0.0337143"/>
 				<colour X="0.552" Y="0.549" Z="0.486"/>
 				<models>
 					<model file = '../3dFiles/sphere.3d'/>
@@ -91,6 +111,36 @@
 			<models>
 			    <model file='../3dFiles/sphere.3d'/>
 			</models>
+			<group>
+				<!-- SATELITE - REIA !-->
+				<rotate angle="0.05" X="0" Y="0" Z="1"/>
+				<translate X="1.0" Y="1.0" Z="0"/>
+				<scale X="0.013119" Y="0.013119" Z="0.013119"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			 <group>
+				<!-- SATELITE - TITA !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="-1.4" Y="-1.4" Z="0"/>
+				<scale X="0.044224" Y="0.044224" Z="0.044224"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			<group>
+				<!-- SATELITE - JAPETO !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="1.4" Y="-1.4" Z="0"/>
+				<scale X="0.012616" Y="0.012616" Z="0.012616"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
 		</group>
 		<group>
 			<!-- URANO !-->
@@ -100,6 +150,46 @@
 			<models>
 			    <model file='../3dFiles/sphere.3d'/>
 			</models>
+			<group>
+				<!-- SATELITE - ARIEL !-->
+				<rotate angle="0.05" X="0" Y="0" Z="1"/>
+				<translate X="1.0" Y="1.0" Z="0"/>
+				<scale X="0.025666" Y="0.025666" Z="0.025666"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			 <group>
+				<!-- SATELITE - UMBRIEL !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="-1.4" Y="-1.4" Z="0"/>
+				<scale X="0.024913" Y="0.024913" Z="0.024913"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			<group>
+				<!-- SATELITE - TITANIA !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="1.4" Y="-1.4" Z="0"/>
+				<scale X="0.033592" Y="0.033592" Z="0.033592"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
+			<group>
+				<!-- SATELITE - OBERON !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="-1.4" Y="1.4" Z="0"/>
+				<scale X="0.032441" Y="0.032441" Z="0.032441"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
 		</group>
 		<group>
 			<!-- NEPTUNO !-->
@@ -109,6 +199,16 @@
 			<models>
 			    <model file='../3dFiles/sphere.3d'/>
 			</models>
+			<group>
+				<!-- SATELITE - TRITAO !-->
+				<rotate angle="0.471" X="0" Y="0" Z="1"/>
+				<translate X="-1.4" Y="1.4" Z="0"/>
+				<scale X="0.059579" Y="0.059579" Z="0.059579"/>
+				<colour X="0.552" Y="0.549" Z="0.486"/>
+				<models>
+					<model file = '../3dFiles/sphere.3d'/>
+				</models>
+			</group>
 		</group>
 	</group>
 </scene>
