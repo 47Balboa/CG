@@ -141,6 +141,14 @@
 					<model file = '../3dFiles/sphere.3d'/>
 				</models>
 			</group>
+			<group>
+				<!-- SATELITE - Anel !-->
+				<rotate angle="30" X="1" Y="0" Z="0"/>
+				<scale X="0.6" Y="0.6" Z="0.6"/>
+				<models>
+					<model file = '../3dFiles/torus.3d'/>
+				</models>
+			</group>
 		</group>
 		<group>
 			<!-- URANO !-->

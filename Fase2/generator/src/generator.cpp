@@ -114,6 +114,21 @@ int main(int argc, char* argv[]) {
             
 			return 0;
 		}
+
+		if (strcmp(argv[1], "torus") == 0 && argc == 7) {
+			float raioIn = stof(argv[2]);
+			float raioEx = stof(argv[3]);
+			int sides = atoi(argv[4]);
+			int rings = atoi(argv[5]);
+
+			p->genTorus(raioIn, raioEx, sides, rings);
+
+			nomeF = argv[6];
+
+			saveFile(p, nomeF);
+
+			return 0;
+		}
 		
 		//desenha cone
 		if (strcmp(argv[1], "cone") == 0 && argc == 7) {

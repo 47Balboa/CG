@@ -291,3 +291,41 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
     }
     
 }
+
+
+void Struct::genTorus(float radiusIn, float radiusOut, int sides, int rings) {
+
+	float dimSide = (float) (2 * M_PI) / sides;
+	float dimRing =  (float) (2 * M_PI) / rings;
+
+	for (int i = 0; i < rings; i++) {
+		double a0 = i * dimRing;
+		double a1 = a0 + dimRing;
+
+		float x0 = (float) cos(a0);
+		float y0 = (float) sin(a0);
+		float x1 = (float) cos(a1);
+		float y1 = (float) sin(a1);
+
+		for (int j = 0; j < sides + 1; j++) {
+
+			//pontos atuais
+			float c = cos(j*dimSide);
+			float r = radiusIn * c + radiusOut;
+			float z = radiusIn * sin(j*dimSide);
+
+			//proximos pontos
+			float nc = cos((j + 1)*dimSide);
+			float nr = radiusIn * nc + radiusOut;
+			float nz = radiusIn * sin((j + 1)*dimSide);
+
+			LP.push_back(new Point(x0*r, y0*r, z));
+			LP.push_back(new Point(x1*r, y1*r, z));
+			LP.push_back(new Point(x0*nr, y0*nr, nz));
+			
+			LP.push_back(new Point(x0*nr, y0*nr, nz));
+			LP.push_back(new Point(x1*r, y1*r, z));
+			LP.push_back(new Point(x1*nr, y1*nr, nz));
+		}
+	}
+}

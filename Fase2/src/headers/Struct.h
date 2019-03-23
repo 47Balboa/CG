@@ -23,7 +23,7 @@ public:
 	void genSphere(float, int, int);
 	void genCone(float , float , int , int );
 	void genBox(float, float, float, int);
-
+	void genTorus(float, float, int, int);
 };
 
 #endif
