@@ -24,6 +24,7 @@ public:
 	void genCone(float , float , int , int );
 	void genBox(float, float, float, int);
 	void genTorus(float, float, int, int);
+	void genCintura(float, float, int, int);
 };
 
 #endif

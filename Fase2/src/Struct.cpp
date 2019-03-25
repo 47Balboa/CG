@@ -55,6 +55,8 @@ void Struct::genCylinder(float radius, float height, int slices) {
 	}
 }
 
+float xxx = 0, yyy = 0, zzz = 0;
+
 // Responsavel por gerar os pontos dos triangulos relativos a esfara.
 void Struct::genSphere(float radius, int slices, int stacks) {
 
@@ -87,29 +89,29 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 			//o que indica que estamos no topo
 			if (j == 0) {
 
-				LP.push_back(new Point(0, radius, 0));
-				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta), x1, radius*sin((i + 1)*alfa)*sin((j + 1)*beta)));
-				LP.push_back(new Point(x2, x1, x3));
+				LP.push_back(new Point(0+xxx, radius+yyy, 0+zzz));
+				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta)+xxx, x1+yyy, radius*sin((i + 1)*alfa)*sin((j + 1)*beta) +zzz));
+				LP.push_back(new Point(x2+xxx, x1+yyy, x3+zzz));
 			}
 
 			//estamos no polo sul da esfera
 			if (j == stacks - 1) {
 
-				LP.push_back(new Point(0, -radius, 0));
-				LP.push_back(new Point(x2 + radius*cos(i*alfa)*sin(beta), -(radius*cos(beta)), x3 + radius*sin(i*alfa)*sin(beta)));
-				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta) + radius*cos((i + 1)*alfa)*sin(beta),
-										-(radius * cos(beta)), 
-										radius*sin((i + 1)*alfa)*sin((j + 1)*beta) + radius * sin((i + 1)*alfa)*sin(beta)));
+				LP.push_back(new Point(0+xxx, -radius+yyy, 0+zzz));
+				LP.push_back(new Point(x2 + radius*cos(i*alfa)*sin(beta) + xxx, -(radius*cos(beta)) + yyy, x3 + radius*sin(i*alfa)*sin(beta) + zzz));
+				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta) + radius*cos((i + 1)*alfa)*sin(beta) + xxx,
+										-(radius * cos(beta)) + yyy, 
+										radius*sin((i + 1)*alfa)*sin((j + 1)*beta) + radius * sin((i + 1)*alfa)*sin(beta) + zzz));
 			}//para os níveis intermedios entre os polos
 			else {
 
-				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta), x4, radius*sin((i + 1)*alfa)*sin((j + 1)*beta)));
-				LP.push_back(new Point(x5, x6, x7));
-				LP.push_back(new Point(x2, x4, x3));
+				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta) + xxx, x4+yyy, radius*sin((i + 1)*alfa)*sin((j + 1)*beta)+zzz));
+				LP.push_back(new Point(x5+xxx, x6+yyy, x7+zzz));
+				LP.push_back(new Point(x2+xxx, x4+yyy, x3+zzz));
 
-				LP.push_back(new Point(x2, x4, x3));
-				LP.push_back(new Point(x5, x6, x7));
-				LP.push_back(new Point(radius*cos(i*alfa)*sin((j + 2)*beta), x6, radius*sin(i*alfa)*sin((j + 2)*beta)));
+				LP.push_back(new Point(x2+xxx, x4+yyy, x3+zzz));
+				LP.push_back(new Point(x5+xxx, x6+yyy,x7+zzz));
+				LP.push_back(new Point(radius*cos(i*alfa)*sin((j + 2)*beta)+xxx, x6+yyy, radius*sin(i*alfa)*sin((j + 2)*beta)+zzz));
 			}
 		}
 	}
@@ -293,31 +295,28 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
 }
 
 
-void Struct::genTorus(float radiusIn, float radiusOut, int sides, int rings) {
+void Struct::genTorus(float tamanhoCoroa, float raio, int faces, int aneis) {
 
-	float dimSide = (float) (2 * M_PI) / sides;
-	float dimRing =  (float) (2 * M_PI) / rings;
+	float lado = (float) (2 * M_PI) / faces;
+	float anel =  (float) (2 * M_PI) / aneis;
 
-	for (int i = 0; i < rings; i++) {
-		double a0 = i * dimRing;
-		double a1 = a0 + dimRing;
+	for (int i = 0; i < aneis; i++) {
+		double a0 = i * anel;
+		double a1 = a0 + anel;
 
 		float x0 = (float) cos(a0);
 		float y0 = (float) sin(a0);
 		float x1 = (float) cos(a1);
 		float y1 = (float) sin(a1);
 
-		for (int j = 0; j < sides + 1; j++) {
+		for (int j = 0; j < faces + 1; j++) {
 
-			//pontos atuais
-			float c = cos(j*dimSide);
-			float r = radiusIn * c + radiusOut;
-			float z = radiusIn * sin(j*dimSide);
+			float r = tamanhoCoroa * cos(j*lado) + raio;
+			float z = tamanhoCoroa * sin(j*lado);
 
-			//proximos pontos
-			float nc = cos((j + 1)*dimSide);
-			float nr = radiusIn * nc + radiusOut;
-			float nz = radiusIn * sin((j + 1)*dimSide);
+			float nc = cos((j + 1)*lado);
+			float nr = tamanhoCoroa * nc + raio;
+			float nz = tamanhoCoroa * sin((j + 1)*lado);
 
 			LP.push_back(new Point(x0*r, y0*r, z));
 			LP.push_back(new Point(x1*r, y1*r, z));
@@ -326,6 +325,56 @@ void Struct::genTorus(float radiusIn, float radiusOut, int sides, int rings) {
 			LP.push_back(new Point(x0*nr, y0*nr, nz));
 			LP.push_back(new Point(x1*r, y1*r, z));
 			LP.push_back(new Point(x1*nr, y1*nr, nz));
+		}
+	}
+}
+
+void Struct::genCintura(float tamanhoCoroa, float raio, int faces, int aneis) {
+
+	float lado = (float)(2 * M_PI) / faces;
+	float anel = (float)(2 * M_PI) / aneis;
+
+
+	for (int i = 0; i < aneis; i++) {
+		double a0 = i * anel;
+		double a1 = a0 + anel;
+
+		float x0 = (float)cos(a0);
+		float y0 = (float)sin(a0);
+		float x1 = (float)cos(a1);
+		float y1 = (float)sin(a1);
+
+		for (int j = 0; j < faces + 1; j++) {
+
+			float r = tamanhoCoroa * cos(j*lado) + raio;
+			float z = tamanhoCoroa * sin(j*lado);
+
+			float nc = cos((j + 1)*lado);
+			float nr = tamanhoCoroa * nc + raio;
+			float nz = tamanhoCoroa * sin((j + 1)*lado);
+
+			//(float radius, int slices, int stacks)
+			float radius = (float) 0.01; int slices = 4; int stacks = 2;
+
+			//LP.push_back(new Point(x0*r, y0*r, z));
+			xxx = x0 * r; yyy = y0 * r; zzz = z;
+			genSphere(radius, slices, stacks);
+
+			//LP.push_back(new Point(x1*r, y1*r, z));
+			xxx = x1 * r; yyy = y1 * r;
+			genSphere(radius, slices, stacks);
+			//LP.push_back(new Point(x0*nr, y0*nr, nz));
+			xxx = x0 * nr; yyy = y0 * nr; zzz = nz;
+			genSphere(radius, slices,stacks);
+			//LP.push_back(new Point(x0*nr, y0*nr, nz));
+			xxx = x0 * nr; yyy = y0 * nr;
+			genSphere(radius, slices, stacks);
+			//LP.push_back(new Point(x1*r, y1*r, z));
+			xxx = x1 * r; yyy = y1 * r; zzz = z;
+			genSphere(radius, slices, stacks);
+			//LP.push_back(new Point(x1*nr, y1*nr, nz));
+			xxx = x1 * nr; yyy = y1 * nr; zzz = nz;
+			genSphere(radius, slices, stacks);
 		}
 	}
 }

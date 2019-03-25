@@ -25,32 +25,40 @@ void saveFile(Struct *p, string nomeF) {
 }
 
 void help() {
-	cout << "*---------------------------HELP---------------------------*" << endl;
-	cout << "|                                                          |" << endl;
-	cout << "|            Modo de utlizacao:                            |" << endl;
-	cout << "| $ generator.exe figura [dimensoes] ficheiro(.3d)         |" << endl;
-	cout << "|                                                          |" << endl;
-	cout << "|         Figuras:                                         |" << endl;
-	cout << "|               -plane :                                   |" << endl;
-	cout << "|                     Dimensoes:                           |" << endl;
-	cout << "|                            -tamanho.                     |" << endl;
-	cout << "|               -box :                                     |" << endl;
-	cout << "|                     Dimensoes :                          |" << endl;
-	cout << "|                            -X Y Z divisoes(opcional).    |" << endl;
-	cout << "|               -sphere :                                  |" << endl;
-	cout << "|                     Dimensoes:                           |" << endl;
-	cout << "|                            -Raio Fatias Pilhas           |" << endl;
-	cout << "|               -cone :                                    |" << endl;
-	cout << "|                     Dimensoes:                           |" << endl;
-	cout << "|                            - Raio Altura Fatias Pilhas.  |" << endl;
-	cout << "|               -cylinder :                                |" << endl;
-	cout << "|                     Dimensoes:                           |" << endl;
-	cout << "|                            -Raio Altura Fatias.          |" << endl;
-	cout << "|                                                          |" << endl;
-	cout << "|         Exemplo de utilizacao:                           |" << endl;
-	cout << "|           $ generator.exe sphere 1 10 10 sphere.3d       |" << endl;
-	cout << "|                                                          |" << endl;
-	cout << "*---------------------------HELP---------------------------*" << endl;
+	cout << "*---------------------------------HELP---------------------------------*" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "|            Modo de utlizacao:                                        |" << endl;
+	cout << "| $ generator.exe figura [dimensoes] ficheiro(.3d)                     |" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "|         Figuras:                                                     |" << endl;
+	cout << "|               -plane :                                               |" << endl;
+	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                            -tamanho.                                 |" << endl;
+	cout << "|               -box :                                                 |" << endl;
+	cout << "|                     Dimensoes :                                      |" << endl;
+	cout << "|                            -X Y Z divisoes(opcional).                |" << endl;
+	cout << "|               -sphere :                                              |" << endl;
+	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                            -Raio Fatias Pilhas                       |" << endl;
+	cout << "|               -cone :                                                |" << endl;
+	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                            - Raio Altura Fatias Pilhas.              |" << endl;
+	cout << "|               -cylinder :                                            |" << endl;
+	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                            -Raio Altura Fatias.                      |" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "|               -torus :                                               |" << endl;
+	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                            -TamanhoCoroa RaioExterior Stacks Aneis   |" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "|               -cintura de asteroides :                               |" << endl;
+	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                            -TamanhoCoroa RaioExterior Stacks Aneis   |" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "|         Exemplo de utilizacao:                                       |" << endl;
+	cout << "|           $ generator.exe sphere 1 10 10 sphere.3d                   |" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "*---------------------------------HELP---------------------------------*" << endl;
 } 
 
 
@@ -116,12 +124,13 @@ int main(int argc, char* argv[]) {
 		}
 
 		if (strcmp(argv[1], "torus") == 0 && argc == 7) {
+			
 			float raioIn = stof(argv[2]);
 			float raioEx = stof(argv[3]);
 			int sides = atoi(argv[4]);
 			int rings = atoi(argv[5]);
 
-			p->genTorus(raioIn, raioEx, sides, rings);
+			p->genTorus( raioIn, raioEx, sides, rings);
 
 			nomeF = argv[6];
 
@@ -130,6 +139,22 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 		
+		if (strcmp(argv[1], "cintura") == 0 && argc == 7) {
+
+			float raioIn = stof(argv[2]);
+			float raioEx = stof(argv[3]);
+			int sides = atoi(argv[4]);
+			int rings = atoi(argv[5]);
+
+			p->genCintura(raioIn, raioEx, sides, rings);
+
+			nomeF = argv[6];
+
+			saveFile(p, nomeF);
+
+			return 0;
+		}
+
 		//desenha cone
 		if (strcmp(argv[1], "cone") == 0 && argc == 7) {
 			float radius = stof(argv[2]);
