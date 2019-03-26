@@ -53,7 +53,7 @@ void help() {
 	cout << "|                                                                      |" << endl;
 	cout << "|               -cintura de asteroides :                               |" << endl;
 	cout << "|                     Dimensoes:                                       |" << endl;
-	cout << "|                            -TamanhoCoroa RaioExterior Stacks Aneis   |" << endl;
+	cout << "|                            -TamanhoCoroa RaioExterior Faces  Aneis   |" << endl;
 	cout << "|                                                                      |" << endl;
 	cout << "|         Exemplo de utilizacao:                                       |" << endl;
 	cout << "|           $ generator.exe sphere 1 10 10 sphere.3d                   |" << endl;

@@ -301,30 +301,30 @@ void Struct::genTorus(float tamanhoCoroa, float raio, int faces, int aneis) {
 	float anel =  (float) (2 * M_PI) / aneis;
 
 	for (int i = 0; i < aneis; i++) {
-		double a0 = i * anel;
-		double a1 = a0 + anel;
 
-		float x0 = (float) cos(a0);
-		float y0 = (float) sin(a0);
-		float x1 = (float) cos(a1);
-		float y1 = (float) sin(a1);
+		float cosI = (float) cos(i * anel);
+		float sinI = (float) sin(i * anel);
+		float cosIanel = (float) cos(i * anel + anel);
+		float sinIanel = (float) sin(i * anel + anel);
 
 		for (int j = 0; j < faces + 1; j++) {
 
-			float r = tamanhoCoroa * cos(j*lado) + raio;
-			float z = tamanhoCoroa * sin(j*lado);
+			float jj = j * lado;
+			float jjUm = (j + 1)*lado;
 
-			float nc = cos((j + 1)*lado);
-			float nr = tamanhoCoroa * nc + raio;
-			float nz = tamanhoCoroa * sin((j + 1)*lado);
+			float tcos = tamanhoCoroa * cos(jj) + raio;
+			float tsin = tamanhoCoroa * sin(jj);
 
-			LP.push_back(new Point(x0*r, y0*r, z));
-			LP.push_back(new Point(x1*r, y1*r, z));
-			LP.push_back(new Point(x0*nr, y0*nr, nz));
+			float tcosUm = tamanhoCoroa * (cos(jjUm)) + raio;
+			float tsinUm = tamanhoCoroa * sin(jjUm);
+
+			LP.push_back(new Point(cosI*tcos, sinI*tcos, tsin));
+			LP.push_back(new Point(cosIanel*tcos, sinIanel*tcos, tsin));
+			LP.push_back(new Point(cosI*tcosUm, sinI*tcosUm, tsinUm));
 			
-			LP.push_back(new Point(x0*nr, y0*nr, nz));
-			LP.push_back(new Point(x1*r, y1*r, z));
-			LP.push_back(new Point(x1*nr, y1*nr, nz));
+			LP.push_back(new Point(cosI*tcosUm, sinI*tcosUm, tsinUm));
+			LP.push_back(new Point(cosIanel*tcos, sinIanel*tcos, tsin));
+			LP.push_back(new Point(cosIanel*tcosUm, sinIanel*tcosUm, tsinUm));
 		}
 	}
 }
@@ -336,44 +336,45 @@ void Struct::genCintura(float tamanhoCoroa, float raio, int faces, int aneis) {
 
 
 	for (int i = 0; i < aneis; i++) {
-		double a0 = i * anel;
-		double a1 = a0 + anel;
 
-		float x0 = (float)cos(a0);
-		float y0 = (float)sin(a0);
-		float x1 = (float)cos(a1);
-		float y1 = (float)sin(a1);
+
+		float cosI = (float)cos(i * anel);
+		float sinI = (float)sin(i * anel);
+		float cosIanel = (float)cos(i * anel + anel);
+		float sinIanel = (float)sin(i * anel + anel);
 
 		for (int j = 0; j < faces + 1; j++) {
 
-			float r = tamanhoCoroa * cos(j*lado) + raio;
-			float z = tamanhoCoroa * sin(j*lado);
+			float jj = j * lado;
+			float jjUm = (j + 1)*lado;
 
-			float nc = cos((j + 1)*lado);
-			float nr = tamanhoCoroa * nc + raio;
-			float nz = tamanhoCoroa * sin((j + 1)*lado);
+			float tcos = tamanhoCoroa * cos(jj) + raio;
+			float tsin = tamanhoCoroa * sin(jj);
+
+			float tcosUm = tamanhoCoroa * (cos(jjUm)) + raio;
+			float tsinUm = tamanhoCoroa * sin(jjUm);
 
 			//(float radius, int slices, int stacks)
 			float radius = (float) 0.01; int slices = 4; int stacks = 2;
 
-			//LP.push_back(new Point(x0*r, y0*r, z));
-			xxx = x0 * r; yyy = y0 * r; zzz = z;
+			//LP.push_back(new Point(cosI*tcos, sinI*tcos, tsin));
+			xxx = cosI*tcos; yyy = sinI*tcos; zzz = tsin;
 			genSphere(radius, slices, stacks);
 
-			//LP.push_back(new Point(x1*r, y1*r, z));
-			xxx = x1 * r; yyy = y1 * r;
+			//LP.push_back(new Point(cosIanel*tcos, sinIanel*tcos, tsin));
+			xxx = cosIanel * tcos; yyy = sinIanel * tcos;
 			genSphere(radius, slices, stacks);
-			//LP.push_back(new Point(x0*nr, y0*nr, nz));
-			xxx = x0 * nr; yyy = y0 * nr; zzz = nz;
+			//LP.push_back(new Point(cosI*tcosUm, sinI*tcosUm, tsinUm));
+			xxx = cosI * tcosUm; yyy = sinI * tcosUm; zzz = tsinUm;
 			genSphere(radius, slices,stacks);
-			//LP.push_back(new Point(x0*nr, y0*nr, nz));
-			xxx = x0 * nr; yyy = y0 * nr;
+			//LP.push_back(new Point(cosI*tcosUm, sinI*tcosUm, tsinUm));
+			xxx = cosI * tcosUm; yyy = sinI * tcosUm;
 			genSphere(radius, slices, stacks);
-			//LP.push_back(new Point(x1*r, y1*r, z));
-			xxx = x1 * r; yyy = y1 * r; zzz = z;
+			//LP.push_back(new Point(cosIanel*tcos, sinIanel*tcos, tsin));
+			xxx = cosIanel * tcos; yyy = sinIanel * tcos; zzz = tsin;
 			genSphere(radius, slices, stacks);
-			//LP.push_back(new Point(x1*nr, y1*nr, nz));
-			xxx = x1 * nr; yyy = y1 * nr; zzz = nz;
+			//LP.push_back(new Point(cosIanel*tcosUm, sinIanel*tcosUm, tsinUm));
+			xxx = cosIanel * tcosUm; yyy = sinIanel * tcosUm; zzz = tsinUm;
 			genSphere(radius, slices, stacks);
 		}
 	}
