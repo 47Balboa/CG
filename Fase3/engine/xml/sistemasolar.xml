@@ -9,7 +9,7 @@
 		</models>
 		<group>
 			<!-- MERCURIO !-->
-			<translate time="30">
+			<translate time="21">
 			      <point X="1.5" Y="0" Z="0"/>
 			      <point X="1.0607" Y="0" Z="1.0607"/>
 			      <point X="0" Y="0" Z="1.5"/>
@@ -28,7 +28,7 @@
 		</group>
 		<group>
 			<!-- VENUS !-->
-			<translate time="60">
+			<translate time="56">
 			      <point X="2.8421" Y="0" Z="0"/>
 			      <point X="2.0097" Y="0" Z="2.0097"/>
 			      <point X="0" Y="0" Z="2.8421"/>
@@ -85,7 +85,7 @@
 		</group> 
 		<group>
 			<!-- MARTE !-->
-			<translate time="140">
+			<translate time="170">
 				<point X="6" Y="0" Z="0"/>
 	            <point X="4.2426" Y="0" Z="4.2426"/>
 	            <point X="0" Y="0" Z="6"/>
@@ -120,7 +120,7 @@
 		</group>
 		<group>
 			<!-- JUPITER !-->
-			<translate time="140">
+			<translate time="1071">
 				<point X="12" Y="0" Z="0"/>
 	            <point X="8.4853" Y="0" Z="8.4853"/>
 	            <point X="0" Y="0" Z="12"/>
@@ -174,7 +174,7 @@
 		</group>
 		<group>
 			<!-- SATURNO !-->
-			<translate time="200">
+			<translate time="2650">
 				<point X="15.285" Y="0" Z="0"/>
 	           	<point X="10.8081" Y="0" Z="10.8081"/>
 	           	<point X="0" Y="0" Z="15.285"/>
@@ -236,7 +236,7 @@
 		</group>
 		<group>
 			<!-- URANO !-->
-			<translate time="250">
+			<translate time="7500">
 			    <point X="22.455" Y="0" Z="0"/>
 	           	<point X="15.8781" Y="0" Z="15.8781"/>
 	           	<point X="0" Y="0" Z="22.455"/>
@@ -290,7 +290,7 @@
 		</group>
 		<group>
 			<!-- NEPTUNO !-->
-			<translate time="300">
+			<translate time="15000">
 				<point X="30.75" Y="0" Z="0"/>
 	           	<point X="21.7435" Y="0" Z="21.7435"/>
 	           	<point X="0" Y="0" Z="30.75"/>
