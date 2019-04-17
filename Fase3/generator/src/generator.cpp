@@ -64,10 +64,10 @@ void help() {
 
 int main(int argc, char* argv[]) {
 
-	if (argc >= 2) { 
+	if (argc >= 2) {
 
 		//comando help
-		if (strcmp(argv[1], "-h") == 0){
+		if (strcmp(argv[1], "-h") == 0) {
 			help();
 			return 0;
 		}
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
 			return 0;
 		}
 
-		if(strcmp(argv[1], "cylinder") == 0 && argc == 6) {
+		if (strcmp(argv[1], "cylinder") == 0 && argc == 6) {
 			float radius = stof(argv[2]);
 			float height = stof(argv[3]);
 			int slices = (int)atoi(argv[4]);
@@ -103,8 +103,8 @@ int main(int argc, char* argv[]) {
 			saveFile(p, nomeF);
 			return 0;
 		}
-		
-		
+
+
 		//desenha box
 		if (strcmp(argv[1], "box") == 0 && argc > 5) {
 			float x = stof(argv[2]);
@@ -115,22 +115,22 @@ int main(int argc, char* argv[]) {
 
 			if (argc == 7) {
 				int divisions = atoi(argv[5]);
-				p->genBox(x,y,z,divisions);
-                nomeF = argv[6];
+				p->genBox(x, y, z, divisions);
+				nomeF = argv[6];
 			}
-            saveFile(p, nomeF);
-            
+			saveFile(p, nomeF);
+
 			return 0;
 		}
 
 		if (strcmp(argv[1], "torus") == 0 && argc == 7) {
-			
+
 			float raioIn = stof(argv[2]);
 			float raioEx = stof(argv[3]);
 			int sides = atoi(argv[4]);
 			int rings = atoi(argv[5]);
 
-			p->genTorus( raioIn, raioEx, sides, rings);
+			p->genTorus(raioIn, raioEx, sides, rings);
 
 			nomeF = argv[6];
 
@@ -138,7 +138,20 @@ int main(int argc, char* argv[]) {
 
 			return 0;
 		}
-		
+
+		//le o ficheiro de patch e produz a figura
+		if (strcmp(argv[1], "bezierPatch") == 0 && argc == 5) {
+
+			int tess = atoi(argv[2]); // nivel de tesselação
+			string input_flie = argv[3]; // ficheiro do patch
+			nomeF = argv[4];
+
+			//saveFile();
+
+			return 0;
+		}
+
+		//desenha cintura de asteroides
 		if (strcmp(argv[1], "cintura") == 0 && argc == 7) {
 
 			float raioIn = stof(argv[2]);
