@@ -1,4 +1,5 @@
 #include "../../src/headers/Struct.h"
+#include "../headers/BezierPatch.h"
 #include <iostream>
 #include <fstream>
 
@@ -23,6 +24,89 @@ void saveFile(Struct *p, string nomeF) {
 	}
 	else { cout << "Nao se conseguiu abrir o ficheiro." << endl; }
 }
+
+
+
+
+string getLineNumber(string file_name, int n_line) {
+
+	string line;
+
+	ifstream file;
+	file.open(file_name);
+
+	if (file.is_open()) {
+		for (int i = 0; i < n_line; i++)
+			getline(file, line);
+		file.close();
+	}
+	else cout << "Unable to open patch file: " << file_name << "." << endl;
+
+
+	return line;
+}
+
+// le do ficheiro patch e cria os pontos para gerar a nova figura
+void readPatch(int tessellation, string input_file, string output_file) {
+
+	string line, token, line_cpy, n_line;
+	int n_patches, n_points, position;
+	int index;
+	int contador = 0; // retirar
+	float value;
+	float vertex_coords[3];
+
+	vector<BezierPatch*> patches_list;
+
+	ifstream file;
+	file.open(input_file);
+
+	if (file.is_open()) {
+
+		// Number of patches
+		getline(file, line);
+		n_patches = atoi(line.c_str());
+
+		// Parsing indexes
+		for (int i = 0; i < n_patches; i++) {
+
+			getline(file, line);
+
+			BezierPatch* patch = new BezierPatch();
+			patches_list.push_back(patch);
+
+			for (int j = 0; j < 16; j++) {
+
+				position = line.find(",");
+				token = line.substr(0, position);
+				index = atoi(token.c_str());
+				line.erase(0, position + 1);
+
+				n_line = getLineNumber(input_file, n_patches + 3 + index);
+				line_cpy = n_line;
+
+				for (int j = 0; j < 3; j++) {
+					position = n_line.find(",");
+					token = n_line.substr(0, position);
+					vertex_coords[j] = atof(token.c_str());
+					n_line.erase(0, position + 1);
+				}
+
+				n_line = line_cpy;
+				patch->addPonto(new Point(vertex_coords[0], vertex_coords[1], vertex_coords[2]));
+			}
+		}
+		vector<Point*> res = renderBezierPatch(tessellation, patches_list);
+		
+		printFileBezier(res, output_file);
+
+		file.close();
+	}
+
+	else cout << "Nao se conseguiu abrir o ficheiro " << input_file << "." << endl;
+}
+
+
 
 void help() {
 	cout << "*---------------------------------HELP---------------------------------*" << endl;
@@ -143,7 +227,8 @@ int main(int argc, char* argv[]) {
 		if (strcmp(argv[1], "bezierPatch") == 0 && argc == 5) {
 
 			int tess = atoi(argv[2]); // nivel de tesselação
-			string input_flie = argv[3]; // ficheiro do patch
+			string input_file = argv[3]; // ficheiro do patch
+
 			nomeF = argv[4];
 
 			//saveFile();
