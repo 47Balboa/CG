@@ -8,14 +8,12 @@ using namespace std;
 
 class BezierPatch {
 
-	vector<Point*> pontosControlo;
-
 	public:
-		BezierPatch();
-		BezierPatch(vector<Point*>);
-		vector<Point*> getPontosControlo();
-		void setPontosControlo(vector<Point*>);
-		void addPonto(Point*);
+		
+		void Bezierpatch(int tesselacao, string input, string output);
+		void BezierCurve(std::vector<Point> *vertices, std::vector<int> patch, std::vector<Point *> points,
+			float u, float v, float intervalo);
+		Point calculaPontos(std::vector<int> patch, std::vector<Point *> pontos, float u, float v);
 };
 
 #endif

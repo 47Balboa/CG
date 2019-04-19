@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-
 using namespace std;
 
 // Responsável por guardar os pontos gerados num documento.
@@ -26,118 +25,40 @@ void saveFile(Struct *p, string nomeF) {
 }
 
 
-
-
-string getLineNumber(string file_name, int n_line) {
-
-	string line;
-
-	ifstream file;
-	file.open(file_name);
-
-	if (file.is_open()) {
-		for (int i = 0; i < n_line; i++)
-			getline(file, line);
-		file.close();
-	}
-	else cout << "Unable to open patch file: " << file_name << "." << endl;
-
-
-	return line;
-}
-
-// le do ficheiro patch e cria os pontos para gerar a nova figura
-void readPatch(int tessellation, string input_file, string output_file) {
-
-	string line, token, line_cpy, n_line;
-	int n_patches, n_points, position;
-	int index;
-	int contador = 0; // retirar
-	float value;
-	float vertex_coords[3];
-
-	vector<BezierPatch*> patches_list;
-
-	ifstream file;
-	file.open(input_file);
-
-	if (file.is_open()) {
-
-		// Number of patches
-		getline(file, line);
-		n_patches = atoi(line.c_str());
-
-		// Parsing indexes
-		for (int i = 0; i < n_patches; i++) {
-
-			getline(file, line);
-
-			BezierPatch* patch = new BezierPatch();
-			patches_list.push_back(patch);
-
-			for (int j = 0; j < 16; j++) {
-
-				position = line.find(",");
-				token = line.substr(0, position);
-				index = atoi(token.c_str());
-				line.erase(0, position + 1);
-
-				n_line = getLineNumber(input_file, n_patches + 3 + index);
-				line_cpy = n_line;
-
-				for (int j = 0; j < 3; j++) {
-					position = n_line.find(",");
-					token = n_line.substr(0, position);
-					vertex_coords[j] = atof(token.c_str());
-					n_line.erase(0, position + 1);
-				}
-
-				n_line = line_cpy;
-				patch->addPonto(new Point(vertex_coords[0], vertex_coords[1], vertex_coords[2]));
-			}
-		}
-		vector<Point*> res = renderBezierPatch(tessellation, patches_list);
-		
-		printFileBezier(res, output_file);
-
-		file.close();
-	}
-
-	else cout << "Nao se conseguiu abrir o ficheiro " << input_file << "." << endl;
-}
-
-
-
 void help() {
 	cout << "*---------------------------------HELP---------------------------------*" << endl;
 	cout << "|                                                                      |" << endl;
 	cout << "|            Modo de utlizacao:                                        |" << endl;
-	cout << "| $ generator.exe figura [dimensoes] ficheiro(.3d)                     |" << endl;
+	cout << "| $ generator.exe figura [argumentos] ficheiro(.3d)                    |" << endl;
 	cout << "|                                                                      |" << endl;
 	cout << "|         Figuras:                                                     |" << endl;
 	cout << "|               -plane :                                               |" << endl;
-	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
 	cout << "|                            -tamanho.                                 |" << endl;
 	cout << "|               -box :                                                 |" << endl;
-	cout << "|                     Dimensoes :                                      |" << endl;
+	cout << "|                     argumentos :                                     |" << endl;
 	cout << "|                            -X Y Z divisoes(opcional).                |" << endl;
 	cout << "|               -sphere :                                              |" << endl;
-	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
 	cout << "|                            -Raio Fatias Pilhas                       |" << endl;
 	cout << "|               -cone :                                                |" << endl;
-	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
 	cout << "|                            - Raio Altura Fatias Pilhas.              |" << endl;
 	cout << "|               -cylinder :                                            |" << endl;
-	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
 	cout << "|                            -Raio Altura Fatias.                      |" << endl;
 	cout << "|                                                                      |" << endl;
 	cout << "|               -torus :                                               |" << endl;
-	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
 	cout << "|                            -TamanhoCoroa RaioExterior Stacks Aneis   |" << endl;
 	cout << "|                                                                      |" << endl;
 	cout << "|               -cintura de asteroides :                               |" << endl;
-	cout << "|                     Dimensoes:                                       |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
 	cout << "|                            -TamanhoCoroa RaioExterior Faces  Aneis   |" << endl;
+	cout << "|                                                                      |" << endl;
+	cout << "|               -bezierPatch :                                               |" << endl;
+	cout << "|                     argumentos:                                      |" << endl;
+	cout << "|                            - NivelTesselacao ficheiroPatch           |" << endl;
 	cout << "|                                                                      |" << endl;
 	cout << "|         Exemplo de utilizacao:                                       |" << endl;
 	cout << "|           $ generator.exe sphere 1 10 10 sphere.3d                   |" << endl;
@@ -228,10 +149,11 @@ int main(int argc, char* argv[]) {
 
 			int tess = atoi(argv[2]); // nivel de tesselação
 			string input_file = argv[3]; // ficheiro do patch
+			string output_file = argv[4];
 
-			nomeF = argv[4];
+			BezierPatch bp;
 
-			//saveFile();
+			bp.Bezierpatch(tess, input_file, output_file);
 
 			return 0;
 		}

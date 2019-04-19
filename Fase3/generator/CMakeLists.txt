@@ -5,7 +5,7 @@ PROJECT(generator)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_executable(${PROJECT_NAME} src/generator.cpp ../src/Point.cpp ../src/Struct.cpp)
+add_executable(${PROJECT_NAME} src/generator.cpp ../src/Point.cpp ../src/Struct.cpp src/BezierPatch.cpp)
 
 find_package(OpenGL REQUIRED)
 include_directories(${OpenGL_INCLUDE_DIRS})
