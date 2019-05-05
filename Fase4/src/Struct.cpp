@@ -164,20 +164,25 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 
 				LP.push_back(new Point(0+xxx, radius+yyy, 0+zzz));
 				normal.push_back(new Point(0, 1, 0));
-				textura.push_back(new Point(0, texY1, 0));
+				textura.push_back(new Point(texX1 + texDivX/2, texY1, 0));
 
 				LP.push_back(new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta)+xxx, x1+yyy, radius*sin((i + 1)*alfa)*sin((j + 1)*beta) +zzz));
 				normal.push_back( (new Point( radius*cos((i + 1)*alfa)*sin((j + 1)*beta)  ,  x1   , radius*sin((i + 1)*alfa)*sin((j + 1)*beta)  ))->calcula_Normal);
-				textura.push_back(new Point(0, texY2, 0));
+				textura.push_back(new Point(texX2, texY2, 0));
 
 
 				LP.push_back(new Point(x2+xxx, x1+yyy, x3+zzz));
 				normal.push_back((new Point(x2, x1, x3))->calcula_Normal);
-				textura.push_back(new Point(0, texY2, 0));
+				textura.push_back(new Point(texX1, texY2, 0));
 			}
 
 			//estamos no polo sul da esfera
 			if (j == stacks - 1) {
+
+					//definic~ao dos pontos de refer^encia nesta
+					//regiao
+					texY1 = texDivY;
+					texY2 = 0;
 
 				LP.push_back(new Point(0+xxx, -radius+yyy, 0+zzz));
 				normal.push_back(new Point(0, -1, 0));
@@ -189,6 +194,11 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 				normal.push_back((new Point(radius*cos((i + 1)*alfa)*sin((j + 1)*beta) + radius * cos((i + 1)*alfa)*sin(beta),
 					-(radius * cos(beta)),
 					radius*sin((i + 1)*alfa)*sin((j + 1)*beta) + radius * sin((i + 1)*alfa)*sin(beta))->calcula_Normal));
+
+					//raciocnio analogo a regi~ao topo
+					textura.push_back(new Point(texX1 + texDivX / 2, texY2, 0));
+					textura.push_back(new Point(texX1, texY1, 0));
+					textura.push_back(new Point(texX2, texY1, 0));
 
 			}//para os níveis intermedios entre os polos
 			else {
@@ -206,6 +216,16 @@ void Struct::genSphere(float radius, int slices, int stacks) {
 				normal.push_back((new Point(x5, x6, x7))->calcula_Normal);
 				LP.push_back(new Point(radius*cos(i*alfa)*sin((j + 2)*beta)+xxx, x6+yyy, radius*sin(i*alfa)*sin((j + 2)*beta)+zzz));
 				normal.push_back((new Point(radius*cos(i*alfa)*sin((j + 2)*beta) , x6 , radius*sin(i*alfa)*sin((j + 2)*beta) ))->calcula_Normal);
+
+					//Triangulo lateral
+					textura.push_back(new Point(texX2, texY1, 0));
+					textura.push_back(new Point(texX2, texY2, 0));
+					textura.push_back(new Point(texX1, texY1, 0));
+
+					//Triangulo complementar ao anterior
+					textura.push_back(new Point(texX1, texY1, 0));
+					textura.push_back(new Point(texX2, texY2, 0));
+					textura.push_back(new Point(texX1, texY2, 0));
 			}
 		}
 	}
@@ -227,6 +247,13 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 	//   
 	float x1, x2, x3, x4, z1, z2, z3, z4;
 
+		//variaveis que representam um "passo" na textura
+		float texDivY = 1.0 / stacks, texDivX = 1.0 / slices;
+
+		//pontos de referencia da textura
+		float texYcima = 0 + texDivY, texYbaixo = 0;
+		float texXesq, texXdir;
+
 	float alfaI;
 	float alfaIMais1;
 
@@ -234,7 +261,7 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 	//o que faz com que o cone seja
 	//desenhado por "andares" 
 	//que convergem no topo do cilindro
-	for (int j = 1; j <= stacks; j++) {
+	for (int j = 1; j <= stacks; j++, texXesq += texDivX, texXdir += texDivX) {
 		alturaCima = alturaStack * j;
 		raio2 = (height - alturaCima) / tangenteBeta;
 
@@ -282,6 +309,22 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 				LP.push_back(new Point(x3, alturaCima, z3));
 				normal.push_back(new Point(x4, alturaCima, z4)->calcula_Normal);
 
+
+					//vertice inferior do triangulo (media das
+					//distancias)
+					textura.push_back(new Point(texXesq + texDivX / 2, texYbaixo, 0));
+					textura.push_back(new Point(texXdir, texYcima, 0));
+					textura.push_back(new Point(texXesq, texYcima, 0));
+
+					// lados
+					textura.push_back(new Point(texXesq, texYbaixo, 0));
+					textura.push_back(new Point(texXdir, texYbaixo, 0));
+					textura.push_back(new Point(texXesq, texYcima, 0));
+
+					textura.push_back(new Point(texXdir, texYbaixo, 0));
+					textura.push_back(new Point(texXdir, texYcima, 0));
+					textura.push_back(new Point(texXesq, texYcima, 0));
+
 			}// estamos no topo do cone
 			else if (j == stacks) {
 
@@ -292,6 +335,10 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 				normal.push_back(new Point(x2, alturaBaixo, z2)->calcula_Normal);
 				LP.push_back(new Point(0, height, 0));
 				normal.push_back(new Point(0, 1, 0));
+
+					texturesList.push_back(new Point(texXesq, texYbaixo, 0));
+					texturesList.push_back(new Point(texXdir, texYbaixo, 0))
+					texturesList.push_back(new Point(texXesq + texDivX / 2, texYcima, 0));
 			}
 			else {
 				//se nao estivermos no topo ou na base estamos a desenhar os lados do cone
@@ -310,6 +357,14 @@ void Struct::genCone(float radius, float height, int slices, int stacks) {
 				normal.push_back(new Point(x4, alturaCima, z4)->calcula_Normal);
 				LP.push_back(new Point(x3, alturaCima, z3));
 				normal.push_back(new Point(x3, alturaCima, z3)->calcula_Normal);
+
+					textura.push_back(new Point(texXesq, texYbaixo, 0));
+					textura.push_back(new Point(texXdir, texYbaixo, 0));
+					textura.push_back(new Point(texXesq, texYcima, 0));
+
+					textura.push_back(new Point(texXdir, texYbaixo, 0));
+					textura.push_back(new Point(texXdir, texYcima, 0));
+					textura.push_back(new Point(texXesq, texYcima, 0));
 			}
 		}
 
@@ -333,8 +388,20 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
     float pY = (float)cY/div;
     float pZ = (float)cZ/div;
     
+	// Calculo dos pontos que identificam as faces da textura
+	float texY1 = cZ / ((cZ * 2) + cY);
+	float texY2 = (cZ + cY) / ((cZ * 2) + cY);
+	
+	float texX1 = (cZ) / ((cZ * 2) + (cX * 2));
+	float texX2 = (cZ + x) / ((cZ * 2) + (cX * 2));
+	float texX3 = ((cZ * 2) + cX) / ((cZ * 2) + (cX * 2));
     
-    
+	// Calculo das divis~oes da textura
+	float texDivX = (cX / ((cZ * 2) + (cX * 2))) / float(div);
+	float texDivY = (cY / ((cZ * 2) + cY)) / float(div);
+	float texDivZ = (cZ / ((cZ * 2) + (cX * 2))) / float(div);
+
+
     for(int i=0;i<div;i++){
         for(int j=0;j<div;j++){
             //Face da frente
@@ -353,6 +420,19 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
             LP.push_back(new Point((-x+pX) + (j*pX),(-y+pY) + (i*pY),z));
 			normal.push_back(new Point(0, 0, 1));
             
+				// Comecar na posicao de texX1 e ir aumentando um
+				//"passo" de cada vez.Por outro lado comeca - se
+				//	no texY2 e diminui - se um "passo"
+		
+				textura.push_back(new Point(texX1 + (j*texDivX), texY2 - (i*texDivY), 0));
+				textura.push_back(new Point(texX1 + (j*texDivX), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX),(texY2 - texDivY) - (i*texDivY), 0));
+
+				// Triangulo complementar ao anterior
+				textura.push_back(new Point(texX1 + (j*texDivX), texY2 - (i*texDivY), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), texY2 - (i*texDivY), 0));
+
             //Face traseira
             
             LP.push_back(new Point(-x + (j*pX),-y + (i*pY),-z));
@@ -369,7 +449,19 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
 			normal.push_back(new Point(0, 0, -1));
             LP.push_back(new Point((-x+pX) + (j*pX),-y + (i*pY),-z));
 			normal.push_back(new Point(0, 0, -1));
+
+				// Comecar na posic~ao final, 1, e ir diminuindo um
+				//"passo" de cada vez.Por outro lado comeca - se
+				//	no texY2 e diminui - se um "passo"
+				textura.push_back(new Point((1 - texDivX) - (j*texDivX), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point(1 - (j*texDivX), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point(1 - (j*texDivX), texY2 - (i*texDivY), 0));
             
+				// Tri^angulo complementar ao anterior
+				textura.push_back(new Point((1 - texDivX) - (j*texDivX), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point(1 - (j*texDivX), texY2 - (i*texDivY), 0));
+				textura.push_back(new Point((1 - texDivX) - (j*texDivX), texY2 - (i*texDivY), 0));
+
             //Face direita
             LP.push_back(new Point(x,-y + (i*pY),-z + (j*pZ)));
 			normal.push_back(new Point(1, 0, 0));
@@ -385,7 +477,18 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
 			normal.push_back(new Point(1, 0, 0));
             LP.push_back(new Point(x,-y + (i*pY),(-z+pZ) + (j*pZ)));
 			normal.push_back(new Point(1, 0, 0));
+
+				// Comecar na posic~ao de texX2 e ir aumentando um
+				//"passo" de cada vez, em Z.Por outro lado
+				//	comeca - se no texY2 e diminui - se um "passo".
+				textura.push_back(new Point(texX2 + (j*texDivZ), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point((texX2 + texDivZ) - (j*texDivX), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point(texX2 + (j*texDivZ), texY2 - (i*texDivY), 0));
             
+				// Tri^angulo complementar ao anterior
+				textura.push_back(new Point((texX2 + texDivZ) + (j*texDivZ), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point((texX2 + texDivZ) + (j*texDivX), texY2 - (i*texDivY), 0));
+				textura.push_back(new Point(texX2 + (j*texDivZ), texY2 - (i*texDivY), 0));
             
             //Face esquerda
             LP.push_back(new Point(-x,-y + (i*pY),-z + (j*pZ)));
@@ -403,6 +506,21 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
             LP.push_back(new Point(-x,(-y+pY) + (i*pY),(-z+pZ) + (j*pZ)));
 			normal.push_back(new Point(-1, 0, 0));
             
+				// Comecar na posic~ao inicial, 0, (tendo em conta
+				// que esta face utiliza a variavel Z) e ir
+				//aumentando um "passo" de cada vez.Por outro
+				//	lado comeca - se no texY2 e diminui - se um
+				//	"passo".
+			
+				textura.push_back(new Point((j*texDivZ), texY2 - (i*texDivY), 0));
+				textura.push_back(new Point(j*texDivZ, (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point(texDivZ + (j*texDivZ), (texY2 - texDivY) - (i*texDivY), 0));
+
+				// Tri^angulo complementar ao anterior
+				textura.push_back(new Point((j*texDivZ), texY2 - (i*texDivY), 0));
+				textura.push_back(new Point(texDivZ + (j*texDivZ), (texY2 - texDivY) - (i*texDivY), 0));
+				textura.push_back(new Point(texDivZ + (j*texDivZ), texY2 - (i*texDivY), 0));
+
             //Topo
             LP.push_back(new Point(-x + (j*pX),y,-z + (i*pZ)));
 			normal.push_back(new Point(1, 0, 0));
@@ -419,6 +537,19 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
             LP.push_back(new Point((-x+pX) + (j*pX),y,-z + (i*pZ)));
 			normal.push_back(new Point(1, 0, 0));
 
+				// Comecar na posic~ao de texX1 e ir aumentando um
+				//"passo" de cada vez.Por outro lado comeca - se
+				//	na posicao final e diminui - se um "passo", em
+				//	Z.
+				textura.push_back(new Point(texX1 + (j*texDivX), 1 - (i*texDivZ), 0));
+				textura.push_back(new Point(texX1 + (j*texDivX), (1 - texDivZ) - (i*texDivZ), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), (1 - texDivZ) - (i*texDivZ), 0));
+
+				// Tri^angulo complementar ao anterior
+				textura.push_back(new Point(texX1 + (j*texDivX), 1 - (i*texDivZ), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), (1 - texDivZ) - (i*texDivZ), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), 1 - (i*texDivZ), 0));
+
             //Base
             LP.push_back(new Point(-x + (j*pX),-y,-z + (i*pZ)));
 			normal.push_back(new Point(-1, 0, 0));
@@ -434,7 +565,18 @@ void Struct:: genBox(float cX, float cY, float cZ, int div){
 			normal.push_back(new Point(-1, 0, 0));
             LP.push_back(new Point((-x+pX) + (j*pX),-y,(-z+pZ) + (i*pZ)));
 			normal.push_back(new Point(-1, 0, 0));
+
+				// Comecar na posic~ao de texX1 e ir aumentando um
+				//"passo" de cada vez.Por outro lado comeca - se
+				//	no texY1 e diminui - se um "passo", em Z.
+				textura.push_back(new Point(texX1 + (j*texDivX), (texY1 - texDivZ) - (i*texDivZ), 0));
+				textura.push_back(new Point(texX1 + (j*texDivX), texY1 - (i*texDivZ), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), texY1 - (i*texDivZ), 0));
             
+				// Tri^angulo complementar ao anterior
+				textura.push_back(new Point(texX1 + (j*texDivX), (texY1 - texDivZ) - (i*texDivZ), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), texY1 - (i*texDivZ), 0));
+				textura.push_back(new Point((texX1 + texDivX) + (j*texDivX), (texY1 - texDivZ) - (i*texDivZ), 0));
         }
     }
     
@@ -445,6 +587,11 @@ void Struct::genTorus(float tamanhoCoroa, float raio, int faces, int aneis) {
 
 	float lado = (float) (2 * M_PI) / faces;
 	float anel =  (float) (2 * M_PI) / aneis;
+
+		//variaveis que representam um "passo" na textura
+		float texX = 1.0 / slices;
+		float texY = 1.0 / stacks;
+	
 
 	for (int i = 0; i < aneis; i++) {
 		
@@ -477,6 +624,16 @@ void Struct::genTorus(float tamanhoCoroa, float raio, int faces, int aneis) {
 			normal.push_back(new Point(cosIanel*tcos, sinIanel*tcos, tsin)->calcula_Normal);
 			LP.push_back(new Point(cosIanel*tcosUm, sinIanel*tcosUm, tsinUm));
 			normal.push_back(new Point(cosIanel*tcosUm, sinIanel*tcosUm, tsinUm)->calcula_Normal);
+
+				textura.push_back(new Point(texX*i, texY*j, 0));
+				textura.push_back(new Point(texX*(i + 1), texY*j, 0));
+				textura.push_back(new Point(texX*i, texY*(j + 1), 0));
+
+				//triangulo complementar ao anterior
+				textura.push_back(new Point(texX*i, texY*(j + 1), 0));
+				textura.push_back(new Point(texX*(i + 1), texY*j, 0));
+				textura.push_back(new Point(texX*(i + 1), texY*(j + 1), 0));
+
 		}
 	}
 }
