@@ -23,7 +23,7 @@
 			<scale X="0.05" Y="0.05" Z="0.05"/>
 			<colour X="0.552" Y="0.549" Z="0.486"/>
 			<models>
-				<model file = '../3dFiles/sphere.3d'/>
+				<model file = '../3dFiles/sphere.3d' texture="imgs/2k/2k_mercury.jpg" />
 			</models>
 		</group>
 		<group>
@@ -42,7 +42,7 @@
 			<scale X="0.1244" Y="0.1244" Z= "0.1244"/>
 			<colour X="0.929" Y="0.909" Z="0.572"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d'  texture="imgs/2k/2k_venus_surface.jpg" />
 			</models>
 		</group>
 		<group>
@@ -99,7 +99,7 @@
 			<scale X="0.0695" Y="0.0695" Z= "0.0695"/>
 			<colour X="0.745" Y="0.192" Z="0.035"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d'/  texture="imgs/2k/2k_mars.jpg">
 			</models>
 		</group>
 		<group>
@@ -133,7 +133,7 @@
 			<scale X="0.6294" Y="0.6294" Z= "0.6294"/>
 			<colour X="0.984" Y="0.760" Z="0.552"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d'/  texture="imgs/2k/2k_jupiter.jpg">
 			</models>
 			<group>
 				<!-- SATELITE - IO !-->
@@ -187,7 +187,7 @@
 			<scale X="0.5126" Y="0.5126" Z= "0.5126"/>
 			<colour X="0.992" Y="0.956" Z="0.447"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d'/ texture="imgs/2k/2k_saturn.jpg" >
 			</models>
 			<group>
 				<!-- SATELITE - REIA !-->
@@ -230,7 +230,7 @@
 				<rotate Angle="70" X="1" Y="0" Z="0"/>
 				<scale X="1" Y="1" Z="1"/>
 				<models>
-					<model file = '../3dFiles/torus.3d'/>
+					<model file = '../3dFiles/torus.3d'/  texture="imgs/2k/2k_saturn_ring_alpha.jpg">
 				</models>
 			</group>
 		</group>
@@ -249,7 +249,7 @@
 			<scale X="0.31" Y="0.31" Z= "0.31"/>
 			<colour X="0.317" Y="0.960" Z="0.921"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d'/ texture="imgs/2k/2k_uranus .jpg">
 			</models>
 			<group>
 				<!-- SATELITE - ARIEL !-->
@@ -303,7 +303,7 @@
 			<scale X="0.3" Y="0.3" Z= "0.3"/>
 			<colour X="0.137" Y="0.086" Z="0.752"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d'/ texture="imgs/2k/2k_neptune.jpg">
 			</models>
 			<group>
 				<!-- SATELITE - TRITAO !-->
@@ -320,7 +320,7 @@
 				<scale X="0.059579" Y="0.059579" Z="0.059579"/>
 				<colour X="0.552" Y="0.549" Z="0.486"/>
 				<models>
-					<model file = '../3dFiles/sphere.3d'/>
+					<model file = '../3dFiles/sphere.3d'/ >
 				</models>
 			</group>
 		</group>
