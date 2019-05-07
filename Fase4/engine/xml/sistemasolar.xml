@@ -5,7 +5,7 @@
 		<scale X="16.0" Y="16.0" Z="16.0"/>
 		<colour X="0.956" Y="0.909" Z="0.043"/>
 		<models>
-			<model file='../3dFiles/sphere.3d'/>
+			<model file='../3dFiles/sphere.3d' texture="imgs/other/sunmap.jpg" />
 		</models>
 		<group>
 			<!-- MERCURIO !-->
@@ -61,7 +61,7 @@
 			<scale X="0.1310" Y="0.1310" Z= "0.1310"/>
 			<colour X="0.105" Y="0.466" Z="0.815"/>
 			<models>
-			    <model file='../3dFiles/sphere.3d'/>
+			    <model file='../3dFiles/sphere.3d' texture="imgs/1k/earthmap1k.jpg" />
 			</models>
 			<group>
 				<!-- SATELITE - LUA !-->
@@ -79,7 +79,7 @@
 		        <scale X="0.2727" Y="0.2727" Z="0.2727"/>
 				<colour X="0.552" Y="0.549" Z="0.486"/>
 				<models>
-					<model file = '../3dFiles/sphere.3d'/>
+					<model file = '../3dFiles/sphere.3d' texture="imgs/2k/moonmap2k.jpg" />
 				</models>
 			</group>
 		</group> 
