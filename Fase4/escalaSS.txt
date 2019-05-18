@@ -1,3 +1,0 @@
-Sol -> escala(5.0,5.0,5.0)
-Mercúrio -> escala(0.02,0.02,0.02) translate(
-Venus ->
